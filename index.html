@@ -1097,11 +1097,9 @@ function makeNetworkDecision(choice) {
   heading.style.marginTop = "20px";
   feedback.appendChild(heading);
 
-  // Explicitly keep the report and completion panel hidden.
   document.getElementById("completionPanel").style.display = "none";
   document.getElementById("reportPanel").style.display = "none";
 
-  // Reveal the mini-game after Incident 3.
   const miniGame = document.getElementById("scannerMiniGame");
   miniGame.style.display = "block";
 
@@ -1136,6 +1134,7 @@ function answerMiniGame(choice) {
     if (choice === 1) {
       points = 50;
       miniGamePoints += points;
+      stats.score += points;
 
       message =
         "<strong>Correct diagnosis! +50 points</strong><br>" +
@@ -1162,6 +1161,7 @@ function answerMiniGame(choice) {
     if (choice === 1) {
       points = 50;
       miniGamePoints += points;
+      stats.score += points;
 
       message =
         "<strong>Excellent troubleshooting response! +50 points</strong><br>" +
@@ -1175,6 +1175,7 @@ function answerMiniGame(choice) {
     } else if (choice === 2) {
       points = 35;
       miniGamePoints += points;
+      stats.score += points;
 
       message =
         "<strong>Good operational recovery! +35 points</strong><br>" +
@@ -1197,6 +1198,9 @@ function answerMiniGame(choice) {
 
   document.getElementById("miniGamePoints").textContent =
     "Challenge Points: " + miniGamePoints + " / 100";
+
+  // Update the overall score immediately after mini-game points are awarded.
+  updateStats();
 
   feedback.className = "mini-game-result " + quality;
   feedback.innerHTML = message;
@@ -1292,7 +1296,6 @@ function finishMiniGame() {
 
   document.getElementById("completionPanel").style.display = "block";
 
-  // The report appears only after both mini-game stages are finished.
   showPerformanceReport();
 
   window.scrollTo({
