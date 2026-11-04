@@ -279,6 +279,12 @@ button:disabled {
   border: 1px solid #efc3ad;
 }
 
+.continue-area {
+  display: none;
+  margin-top: 20px;
+  text-align: right;
+}
+
 .score-panel {
   margin-top: 20px;
   background: var(--navy);
@@ -295,6 +301,21 @@ button:disabled {
 .score-panel strong {
   color: var(--yellow);
   font-size: 25px;
+}
+
+.completion-panel {
+  display: none;
+  margin-top: 22px;
+  background: #e6f5ec;
+  border: 1px solid #a6d9b8;
+  border-radius: 12px;
+  padding: 24px;
+  line-height: 1.6;
+}
+
+.completion-panel h3 {
+  color: var(--green);
+  margin-bottom: 10px;
 }
 
 footer {
@@ -428,10 +449,12 @@ footer {
       <strong id="score">0</strong>
     </div>
 
-    <div>Incident 1 of 1</div>
+    <div id="incidentCounter">Incident 1 of 2</div>
   </div>
 
-  <section class="incident">
+  <!-- INCIDENT 1 -->
+
+  <section class="incident" id="incident1">
 
     <div class="incident-label">CRITICAL INCIDENT</div>
 
@@ -465,6 +488,63 @@ footer {
 
     <div id="feedback" class="feedback" aria-live="polite"></div>
 
+    <div class="continue-area" id="continueArea">
+      <button class="primary-button" onclick="showIncident2()">
+        CONTINUE TO INCIDENT 2 →
+      </button>
+    </div>
+
+  </section>
+
+  <!-- INCIDENT 2 -->
+
+  <section class="incident" id="incident2" style="display:none;">
+
+    <div class="incident-label">SYSTEMS INCIDENT</div>
+
+    <h3>📡 Barcode Scanner System Failure</h3>
+
+    <p>
+      Several associates report that their handheld barcode scanners
+      are not connecting to the warehouse system. Packages are
+      accumulating because items cannot be scanned and processed.
+      You need to identify the problem and restore normal workflow.
+    </p>
+
+    <h3 style="font-size:16px;margin-top:22px;">
+      Select your management response:
+    </h3>
+
+    <div class="choice-list">
+
+      <button class="choice-button" onclick="makeScannerDecision(1)">
+        1. Check scanner connectivity, troubleshoot the devices,
+        and contact technical support if needed.
+      </button>
+
+      <button class="choice-button" onclick="makeScannerDecision(2)">
+        2. Issue available replacement scanners and coordinate
+        associates while the affected devices are investigated.
+      </button>
+
+      <button class="choice-button" onclick="makeScannerDecision(3)">
+        3. Tell associates to keep retrying without investigating
+        the scanner connection problem.
+      </button>
+
+    </div>
+
+    <div id="scannerFeedback" class="feedback" aria-live="polite"></div>
+
+  </section>
+
+  <section class="completion-panel" id="completionPanel">
+    <h3>✦ Shift Simulation Complete!</h3>
+    <p>
+      You have completed both warehouse systems incidents.
+      Review your management decision score and operational KPIs
+      to evaluate your performance.
+    </p>
   </section>
 
 </section>
@@ -487,6 +567,7 @@ const stats = {
 };
 
 let decisionMade = false;
+let scannerDecisionMade = false;
 
 function startShift() {
   document.getElementById("welcomeScreen").style.display = "none";
@@ -533,7 +614,9 @@ function makeDecision(choice) {
   decisionMade = true;
 
   const feedback = document.getElementById("feedback");
-  const buttons = document.querySelectorAll(".choice-button");
+  const buttons = document.querySelectorAll(
+    "#incident1 .choice-button"
+  );
 
   buttons.forEach(button => {
     button.disabled = true;
@@ -596,6 +679,106 @@ function makeDecision(choice) {
   heading.style.marginTop = "20px";
 
   feedback.appendChild(heading);
+
+  document.getElementById("continueArea").style.display = "block";
+}
+
+function showIncident2() {
+  if (!decisionMade) return;
+
+  document.getElementById("incident1").style.display = "none";
+  document.getElementById("incident2").style.display = "block";
+  document.getElementById("incidentCounter").textContent =
+    "Incident 2 of 2";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function makeScannerDecision(choice) {
+  if (scannerDecisionMade) return;
+
+  if (![1, 2, 3].includes(choice)) return;
+
+  scannerDecisionMade = true;
+
+  const feedback = document.getElementById("scannerFeedback");
+  const buttons = document.querySelectorAll(
+    "#incident2 .choice-button"
+  );
+
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+
+  let message = "";
+  let quality = "";
+
+  if (choice === 1) {
+
+    stats.productivity += 5;
+    stats.score += 100;
+
+    message =
+      "<strong>Excellent systems response!</strong><br>" +
+      "You investigated scanner connectivity, coordinated " +
+      "troubleshooting, and involved technical support as needed. " +
+      "Identifying the underlying issue helps restore reliable " +
+      "scanning and normal workflow.";
+
+    quality = "good";
+
+  } else if (choice === 2) {
+
+    stats.productivity += 3;
+    stats.morale += 2;
+    stats.score += 90;
+
+    message =
+      "<strong>Strong recovery decision!</strong><br>" +
+      "Replacement scanners help associates resume work while " +
+      "the affected devices are investigated. Make sure the " +
+      "original devices are documented and technical support " +
+      "is informed.";
+
+    quality = "good";
+
+  } else if (choice === 3) {
+
+    stats.productivity -= 15;
+    stats.morale -= 5;
+
+    message =
+      "<strong>Poor systems response!</strong><br>" +
+      "Repeated attempts without investigating the issue waste " +
+      "time and allow the backlog to grow. Scanner connectivity " +
+      "problems should be diagnosed and escalated appropriately.";
+
+    quality = "bad";
+  }
+
+  updateStats();
+
+  feedback.className = "feedback " + quality;
+  feedback.innerHTML = message;
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Decision Recorded";
+  heading.style.marginTop = "20px";
+
+  feedback.appendChild(heading);
+
+  document.getElementById("incidentCounter").textContent =
+    "2 of 2 — Completed";
+
+  document.getElementById("completionPanel").style.display = "block";
+
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
 }
 </script>
 
