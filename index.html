@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,296 +9,319 @@
 
 <style>
 :root {
-  --navy:#10243e;
-  --blue:#205487;
-  --yellow:#ffc220;
-  --background:#edf2f7;
-  --white:#ffffff;
-  --text:#203047;
-  --muted:#718096;
-  --green:#16834b;
-  --red:#bd3030;
-  --border:#dce4ed;
+  --navy: #10243e;
+  --blue: #205487;
+  --yellow: #ffc220;
+  --background: #edf2f7;
+  --white: #ffffff;
+  --text: #203047;
+  --muted: #718096;
+  --green: #16834b;
+  --red: #bd3030;
+  --border: #dce4ed;
 }
 
 * {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family:Arial,sans-serif;
-  background:var(--background);
-  color:var(--text);
-  min-height:100vh;
+  font-family: Arial, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
 }
 
 header {
-  background:var(--navy);
-  color:white;
-  padding:18px 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-  border-bottom:4px solid var(--yellow);
+  background: var(--navy);
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  border-bottom: 4px solid var(--yellow);
 }
 
 .brand {
-  font-size:21px;
-  font-weight:800;
+  font-size: 21px;
+  font-weight: 800;
 }
 
-.brand span {color:var(--yellow);}
+.brand span {
+  color: var(--yellow);
+}
 
 .header-label {
-  color:#cbd5e1;
-  font-size:12px;
-  letter-spacing:1px;
+  color: #cbd5e1;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 
 main {
-  max-width:1150px;
-  margin:35px auto;
-  padding:0 20px;
+  max-width: 1150px;
+  margin: 35px auto;
+  padding: 0 20px;
 }
 
 .welcome {
-  background:linear-gradient(135deg,var(--navy),var(--blue));
-  color:white;
-  border-radius:18px;
-  padding:55px 35px;
-  text-align:center;
+  background: linear-gradient(135deg, var(--navy), var(--blue));
+  color: white;
+  border-radius: 18px;
+  padding: 55px 35px;
+  text-align: center;
 }
 
 .spark {
-  color:var(--yellow);
-  font-size:40px;
-  margin-bottom:15px;
+  color: var(--yellow);
+  font-size: 40px;
+  margin-bottom: 15px;
 }
 
 .welcome h1 {
-  font-size:clamp(30px,5vw,48px);
-  margin-bottom:14px;
+  font-size: clamp(30px, 5vw, 48px);
+  margin-bottom: 14px;
 }
 
-.welcome h1 span {color:var(--yellow);}
+.welcome h1 span {
+  color: var(--yellow);
+}
 
 .welcome p {
-  max-width:650px;
-  margin:0 auto 28px;
-  color:#dce8f5;
-  line-height:1.7;
+  max-width: 650px;
+  margin: 0 auto 28px;
+  color: #dce8f5;
+  line-height: 1.7;
 }
 
 button {
-  border:none;
-  border-radius:8px;
-  padding:13px 20px;
-  font-size:14px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:transform .2s,opacity .2s;
+  border: none;
+  border-radius: 8px;
+  padding: 13px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s, opacity .2s;
 }
 
-button:hover {
-  transform:translateY(-2px);
-  opacity:.9;
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: .9;
 }
 
 button:focus-visible {
-  outline:3px solid var(--yellow);
-  outline-offset:3px;
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
 }
 
-.start-button,.primary-button {
-  background:var(--yellow);
-  color:var(--navy);
+button:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.start-button,
+.primary-button {
+  background: var(--yellow);
+  color: var(--navy);
 }
 
 .section-heading {
-  margin:35px 0 18px;
-  font-size:21px;
+  margin: 35px 0 18px;
+  font-size: 21px;
 }
 
 .preview-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
-.preview-card,.status-card {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:22px;
+.preview-card,
+.status-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
 }
 
 .emoji {
-  font-size:30px;
-  margin-bottom:12px;
+  font-size: 30px;
+  margin-bottom: 12px;
 }
 
 .preview-card h3 {
-  margin-bottom:8px;
-  color:var(--navy);
+  margin-bottom: 8px;
+  color: var(--navy);
 }
 
 .preview-card p {
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
-.game-screen {display:none;}
+.game-screen {
+  display: none;
+}
 
 .game-heading {
-  background:white;
-  border-radius:12px;
-  padding:25px;
-  border-left:5px solid var(--yellow);
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  border-left: 5px solid var(--yellow);
 }
 
 .game-heading h2 {
-  color:var(--navy);
-  margin-bottom:8px;
+  color: var(--navy);
+  margin-bottom: 8px;
 }
 
 .status-grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  margin-top:20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .status-card p {
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:10px;
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .status-card strong {
-  color:var(--navy);
-  font-size:27px;
+  color: var(--navy);
+  font-size: 27px;
 }
 
 .status-card span {
-  display:block;
-  font-size:12px;
-  color:var(--muted);
-  margin-top:5px;
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
 }
 
 .incident {
-  margin-top:22px;
-  background:white;
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:24px;
+  margin-top: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
 }
 
 .incident-label {
-  display:inline-block;
-  background:#fde8e8;
-  color:var(--red);
-  font-size:11px;
-  font-weight:bold;
-  padding:6px 10px;
-  border-radius:5px;
-  margin-bottom:12px;
+  display: inline-block;
+  background: #fde8e8;
+  color: var(--red);
+  font-size: 11px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin-bottom: 12px;
 }
 
 .incident h3 {
-  color:var(--navy);
-  margin-bottom:10px;
-  font-size:22px;
+  color: var(--navy);
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 
 .incident p {
-  color:var(--muted);
-  line-height:1.6;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 .choice-list {
-  display:grid;
-  gap:12px;
-  margin-top:20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .choice-button {
-  background:#f3f6fa;
-  border:1px solid var(--border);
-  color:var(--navy);
-  text-align:left;
-  line-height:1.5;
-  padding:17px;
+  display: block;
+  width: 100%;
+  background: #f3f6fa;
+  border: 1px solid var(--border);
+  color: var(--navy);
+  text-align: left;
+  line-height: 1.5;
+  padding: 17px;
+  white-space: normal;
 }
 
-.choice-button:hover {
-  background:#e6eef8;
-}
-
-.choice-button:disabled {
-  opacity:.55;
-  cursor:not-allowed;
-  transform:none;
+.choice-button:hover:not(:disabled) {
+  background: #e6eef8;
 }
 
 .feedback {
-  display:none;
-  margin-top:20px;
-  padding:18px;
-  border-radius:10px;
-  line-height:1.6;
+  display: none;
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 10px;
+  line-height: 1.6;
 }
 
 .feedback.good {
-  display:block;
-  background:#e6f5ec;
-  border:1px solid #a6d9b8;
+  display: block;
+  background: #e6f5ec;
+  border: 1px solid #a6d9b8;
 }
 
 .feedback.bad {
-  display:block;
-  background:#fff0e8;
-  border:1px solid #efc3ad;
+  display: block;
+  background: #fff0e8;
+  border: 1px solid #efc3ad;
 }
 
 .score-panel {
-  margin-top:20px;
-  background:var(--navy);
-  color:white;
-  border-radius:10px;
-  padding:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
+  margin-top: 20px;
+  background: var(--navy);
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .score-panel strong {
-  color:var(--yellow);
-  font-size:25px;
+  color: var(--yellow);
+  font-size: 25px;
 }
 
 footer {
-  text-align:center;
-  padding:35px 15px;
-  color:var(--muted);
-  font-size:12px;
+  text-align: center;
+  padding: 35px 15px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
-@media(max-width:700px) {
-  .preview-grid {grid-template-columns:1fr;}
-  .status-grid {grid-template-columns:repeat(2,1fr);}
-  .welcome {padding:40px 20px;}
+@media (max-width: 700px) {
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .welcome {
+    padding: 40px 20px;
+  }
 }
 
-@media(max-width:380px) {
-  .status-grid {grid-template-columns:1fr;}
+@media (max-width: 380px) {
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -313,13 +337,16 @@ footer {
 
 <section class="welcome" id="welcomeScreen">
   <div class="spark">✦</div>
+
   <h1>Take Command of <span>the Warehouse</span></h1>
+
   <p>
     You are the Area Manager responsible for keeping a busy
     fulfillment operation running. Manage equipment, coordinate
     associates, resolve system incidents, and protect productivity
     and safety throughout your shift.
   </p>
+
   <button class="start-button" onclick="startShift()">
     START SHIFT →
   </button>
@@ -329,23 +356,34 @@ footer {
   <h2 class="section-heading">Your Responsibilities</h2>
 
   <div class="preview-grid">
+
     <div class="preview-card">
       <div class="emoji">⚙️</div>
       <h3>Systems & Equipment</h3>
-      <p>Monitor warehouse hardware, troubleshoot equipment failures, and coordinate repairs.</p>
+      <p>
+        Monitor warehouse hardware, troubleshoot equipment failures,
+        and coordinate repairs.
+      </p>
     </div>
 
     <div class="preview-card">
       <div class="emoji">👥</div>
       <h3>People & Productivity</h3>
-      <p>Manage staffing, assign work, support associates, and maintain operational performance.</p>
+      <p>
+        Manage staffing, assign work, support associates,
+        and maintain operational performance.
+      </p>
     </div>
 
     <div class="preview-card">
       <div class="emoji">🛡️</div>
       <h3>Safety & Compliance</h3>
-      <p>Respond to safety concerns, investigate incidents, and maintain compliance.</p>
+      <p>
+        Respond to safety concerns, investigate incidents,
+        and maintain compliance.
+      </p>
     </div>
+
   </div>
 </section>
 
@@ -389,10 +427,12 @@ footer {
       <div>Management Decision Score</div>
       <strong id="score">0</strong>
     </div>
+
     <div>Incident 1 of 1</div>
   </div>
 
   <section class="incident">
+
     <div class="incident-label">CRITICAL INCIDENT</div>
 
     <h3>⚙️ Conveyor System Failure</h3>
@@ -408,6 +448,7 @@ footer {
     </h3>
 
     <div class="choice-list">
+
       <button class="choice-button" onclick="makeDecision(1)">
         1. Dispatch maintenance and coordinate troubleshooting.
       </button>
@@ -419,9 +460,11 @@ footer {
       <button class="choice-button" onclick="makeDecision(3)">
         3. Ignore the issue and continue normal operations.
       </button>
+
     </div>
 
     <div id="feedback" class="feedback" aria-live="polite"></div>
+
   </section>
 
 </section>
@@ -456,7 +499,16 @@ function startShift() {
   });
 }
 
+function clampStat(value) {
+  return Math.max(0, Math.min(100, value));
+}
+
 function updateStats() {
+  stats.productivity = clampStat(stats.productivity);
+  stats.equipment = clampStat(stats.equipment);
+  stats.safety = clampStat(stats.safety);
+  stats.morale = clampStat(stats.morale);
+
   document.getElementById("productivity").textContent =
     stats.productivity + "%";
 
@@ -476,20 +528,23 @@ function updateStats() {
 function makeDecision(choice) {
   if (decisionMade) return;
 
+  if (![1, 2, 3].includes(choice)) return;
+
   decisionMade = true;
 
   const feedback = document.getElementById("feedback");
   const buttons = document.querySelectorAll(".choice-button");
 
-  buttons.forEach(button => button.disabled = true);
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
 
   let message = "";
   let quality = "";
 
   if (choice === 1) {
+
     stats.productivity -= 5;
-    stats.equipment += 0;
-    stats.morale += 5;
     stats.score += 100;
 
     message =
@@ -498,9 +553,11 @@ function makeDecision(choice) {
       "The team has a clear response plan, and the equipment issue " +
       "is being addressed. Productivity experiences a small temporary " +
       "impact while repairs begin.";
+
     quality = "good";
 
   } else if (choice === 2) {
+
     stats.productivity += 5;
     stats.morale += 3;
     stats.score += 90;
@@ -510,9 +567,11 @@ function makeDecision(choice) {
       "Redirecting packages protects workflow and limits downtime. " +
       "Remember to coordinate maintenance and ensure the alternate " +
       "conveyor has adequate capacity and is safe to use.";
+
     quality = "good";
 
-  } else {
+  } else if (choice === 3) {
+
     stats.productivity -= 20;
     stats.equipment -= 10;
     stats.safety -= 5;
@@ -523,20 +582,21 @@ function makeDecision(choice) {
       "Ignoring the equipment failure allows the backlog to grow. " +
       "Equipment problems need to be reported and addressed, " +
       "and continued operation must follow safety procedures.";
+
     quality = "bad";
   }
+
+  updateStats();
 
   feedback.className = "feedback " + quality;
   feedback.innerHTML = message;
 
-  updateStats();
-
   const heading = document.createElement("h3");
   heading.textContent = "Decision Recorded";
   heading.style.marginTop = "20px";
+
   feedback.appendChild(heading);
 }
-
 </script>
 
 </body>
