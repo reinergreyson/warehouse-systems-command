@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Warehouse Systems Command — an interactive warehouse operations management simulation.">
+  <title>Warehouse Systems Command</title>
+
+  <style>
+    :root {
+      --navy: #10243e;
+      --blue: #173f69;
+      --yellow: #ffc220;
+      --background: #edf2f7;
+      --white: #ffffff;
+      --text: #203047;
+      --muted: #718096;
+      --green: #16834b;
+      --border: #dce4ed;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 18px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      border-bottom: 4px solid var(--yellow);
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand span {
+      color: var(--yellow);
+    }
+
+    .header-label {
+      color: #cbd5e1;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+
+    .welcome {
+      background: linear-gradient(135deg, #10243e, #205487);
+      color: white;
+      border-radius: 18px;
+      padding: 55px 35px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(16, 36, 62, 0.15);
+    }
+
+    .spark {
+      color: var(--yellow);
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .welcome h1 {
+      font-size: clamp(30px, 5vw, 48px);
+      margin-bottom: 14px;
+    }
+
+    .welcome h1 span {
+      color: var(--yellow);
+    }
+
+    .welcome p {
+      max-width: 650px;
+      margin: 0 auto 28px;
+      color: #dce8f5;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .start-button {
+      background: var(--yellow);
+      color: var(--navy);
+    }
+
+    .section-heading {
+      margin: 35px 0 18px;
+      font-size: 21px;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .preview-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 3px 10px rgba(16, 36, 62, 0.04);
+    }
+
+    .preview-card .emoji {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .preview-card h3 {
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+
+    .preview-card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .game-screen {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .game-heading {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      border-left: 5px solid var(--yellow);
+    }
+
+    .game-heading h2 {
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .status-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .status-card p {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .status-card strong {
+      color: var(--navy);
+      font-size: 27px;
+    }
+
+    .status-card span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 20px;
+      background: #fff8df;
+      border: 1px solid #f2d77b;
+      border-radius: 10px;
+      padding: 18px;
+      line-height: 1.6;
+    }
+
+    .notice strong {
+      color: var(--navy);
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 15px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .preview-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .status-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .welcome {
+        padding: 40px 20px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .status-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">WAREHOUSE <span>✦</span> SYSTEMS COMMAND</div>
+  <div class="header-label">OPERATIONS SIMULATION</div>
+</header>
+
+<main>
+
+  <section class="welcome" id="welcomeScreen">
+    <div class="spark">✦</div>
+    <h1>Take Command of <span>the Warehouse</span></h1>
+
+    <p>
+      You are the Area Manager responsible for keeping a busy
+      fulfillment operation running. Manage equipment, coordinate
+      associates, resolve system incidents, and protect productivity
+      and safety throughout your shift.
+    </p>
+
+    <button class="start-button" onclick="startShift()">
+      START SHIFT →
+    </button>
+  </section>
+
+  <section id="previewSection">
+    <h2 class="section-heading">Your Responsibilities</h2>
+
+    <div class="preview-grid">
+
+      <div class="preview-card">
+        <div class="emoji">⚙️</div>
+        <h3>Systems & Equipment</h3>
+        <p>
+          Monitor warehouse hardware, troubleshoot equipment failures,
+          and coordinate repairs.
+        </p>
+      </div>
+
+      <div class="preview-card">
+        <div class="emoji">👥</div>
+        <h3>People & Productivity</h3>
+        <p>
+          Manage staffing, assign work, support associates,
+          and maintain operational performance.
+        </p>
+      </div>
+
+      <div class="preview-card">
+        <div class="emoji">🛡️</div>
+        <h3>Safety & Compliance</h3>
+        <p>
+          Respond to safety concerns, investigate incidents,
+          and keep warehouse operations compliant.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="game-screen" id="gameScreen">
+
+    <div class="game-heading">
+      <h2>Shift 1: Operations Control</h2>
+      <p>Welcome, Area Manager. Your shift is now underway.</p>
+    </div>
+
+    <div class="status-grid">
+
+      <div class="status-card">
+        <p>Productivity</p>
+        <strong>100%</strong>
+        <span>Operational performance</span>
+      </div>
+
+      <div class="status-card">
+        <p>Equipment Health</p>
+        <strong>100%</strong>
+        <span>Systems availability</span>
+      </div>
+
+      <div class="status-card">
+        <p>Safety Score</p>
+        <strong>100%</strong>
+        <span>Safety compliance</span>
+      </div>
+
+      <div class="status-card">
+        <p>Associate Morale</p>
+        <strong>100%</strong>
+        <span>Team engagement</span>
+      </div>
+
+    </div>
+
+    <div class="notice">
+      <strong>CONTROL ROOM NOTICE</strong>
+      <p>
+        Your warehouse is currently operating normally.
+        Stay alert. Operational incidents and management
+        challenges will be introduced as the game develops.
+      </p>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  Warehouse Systems Command | Interactive Portfolio Project
+  <br>
+  Designed to simulate warehouse systems and operations management.
+</footer>
+
+<script>
+  function startShift() {
+    document.getElementById("welcomeScreen").style.display = "none";
+    document.getElementById("previewSection").style.display = "none";
+    document.getElementById("gameScreen").style.display = "block";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+</script>
+
+</body>
+</html>
