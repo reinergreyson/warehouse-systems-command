@@ -2,245 +2,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Warehouse Systems Command — an interactive warehouse operations management simulation.">
-  <title>Warehouse Systems Command</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Warehouse Systems Command - interactive warehouse operations simulation.">
+<title>Warehouse Systems Command</title>
 
-  <style>
-    :root {
-      --navy: #10243e;
-      --blue: #173f69;
-      --yellow: #ffc220;
-      --background: #edf2f7;
-      --white: #ffffff;
-      --text: #203047;
-      --muted: #718096;
-      --green: #16834b;
-      --border: #dce4ed;
-    }
+<style>
+:root {
+  --navy:#10243e;
+  --blue:#205487;
+  --yellow:#ffc220;
+  --background:#edf2f7;
+  --white:#ffffff;
+  --text:#203047;
+  --muted:#718096;
+  --green:#16834b;
+  --red:#bd3030;
+  --border:#dce4ed;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: var(--background);
-      color: var(--text);
-      min-height: 100vh;
-    }
+body {
+  font-family:Arial,sans-serif;
+  background:var(--background);
+  color:var(--text);
+  min-height:100vh;
+}
 
-    header {
-      background: var(--navy);
-      color: white;
-      padding: 18px 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-      border-bottom: 4px solid var(--yellow);
-    }
+header {
+  background:var(--navy);
+  color:white;
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  border-bottom:4px solid var(--yellow);
+}
 
-    .brand {
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
+.brand {
+  font-size:21px;
+  font-weight:800;
+}
 
-    .brand span {
-      color: var(--yellow);
-    }
+.brand span {color:var(--yellow);}
 
-    .header-label {
-      color: #cbd5e1;
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
+.header-label {
+  color:#cbd5e1;
+  font-size:12px;
+  letter-spacing:1px;
+}
 
-    main {
-      max-width: 1150px;
-      margin: 35px auto;
-      padding: 0 20px;
-    }
+main {
+  max-width:1150px;
+  margin:35px auto;
+  padding:0 20px;
+}
 
-    .welcome {
-      background: linear-gradient(135deg, #10243e, #205487);
-      color: white;
-      border-radius: 18px;
-      padding: 55px 35px;
-      text-align: center;
-      box-shadow: 0 12px 30px rgba(16, 36, 62, 0.15);
-    }
+.welcome {
+  background:linear-gradient(135deg,var(--navy),var(--blue));
+  color:white;
+  border-radius:18px;
+  padding:55px 35px;
+  text-align:center;
+}
 
-    .spark {
-      color: var(--yellow);
-      font-size: 40px;
-      margin-bottom: 15px;
-    }
+.spark {
+  color:var(--yellow);
+  font-size:40px;
+  margin-bottom:15px;
+}
 
-    .welcome h1 {
-      font-size: clamp(30px, 5vw, 48px);
-      margin-bottom: 14px;
-    }
+.welcome h1 {
+  font-size:clamp(30px,5vw,48px);
+  margin-bottom:14px;
+}
 
-    .welcome h1 span {
-      color: var(--yellow);
-    }
+.welcome h1 span {color:var(--yellow);}
 
-    .welcome p {
-      max-width: 650px;
-      margin: 0 auto 28px;
-      color: #dce8f5;
-      line-height: 1.7;
-      font-size: 16px;
-    }
+.welcome p {
+  max-width:650px;
+  margin:0 auto 28px;
+  color:#dce8f5;
+  line-height:1.7;
+}
 
-    button {
-      border: none;
-      border-radius: 8px;
-      padding: 14px 28px;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s, opacity 0.2s;
-    }
+button {
+  border:none;
+  border-radius:8px;
+  padding:13px 20px;
+  font-size:14px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:transform .2s,opacity .2s;
+}
 
-    button:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
+button:hover {
+  transform:translateY(-2px);
+  opacity:.9;
+}
 
-    .start-button {
-      background: var(--yellow);
-      color: var(--navy);
-    }
+button:focus-visible {
+  outline:3px solid var(--yellow);
+  outline-offset:3px;
+}
 
-    .section-heading {
-      margin: 35px 0 18px;
-      font-size: 21px;
-    }
+.start-button,.primary-button {
+  background:var(--yellow);
+  color:var(--navy);
+}
 
-    .preview-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
+.section-heading {
+  margin:35px 0 18px;
+  font-size:21px;
+}
 
-    .preview-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 22px;
-      box-shadow: 0 3px 10px rgba(16, 36, 62, 0.04);
-    }
+.preview-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
 
-    .preview-card .emoji {
-      font-size: 30px;
-      margin-bottom: 12px;
-    }
+.preview-card,.status-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:22px;
+}
 
-    .preview-card h3 {
-      margin-bottom: 8px;
-      color: var(--navy);
-    }
+.emoji {
+  font-size:30px;
+  margin-bottom:12px;
+}
 
-    .preview-card p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
+.preview-card h3 {
+  margin-bottom:8px;
+  color:var(--navy);
+}
 
-    .game-screen {
-      display: none;
-      margin-top: 25px;
-    }
+.preview-card p {
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
 
-    .game-heading {
-      background: white;
-      border-radius: 12px;
-      padding: 25px;
-      border-left: 5px solid var(--yellow);
-    }
+.game-screen {display:none;}
 
-    .game-heading h2 {
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
+.game-heading {
+  background:white;
+  border-radius:12px;
+  padding:25px;
+  border-left:5px solid var(--yellow);
+}
 
-    .status-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-top: 20px;
-    }
+.game-heading h2 {
+  color:var(--navy);
+  margin-bottom:8px;
+}
 
-    .status-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      border: 1px solid var(--border);
-    }
+.status-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:20px;
+}
 
-    .status-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
+.status-card p {
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:10px;
+}
 
-    .status-card strong {
-      color: var(--navy);
-      font-size: 27px;
-    }
+.status-card strong {
+  color:var(--navy);
+  font-size:27px;
+}
 
-    .status-card span {
-      font-size: 12px;
-      color: var(--muted);
-    }
+.status-card span {
+  display:block;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
 
-    .notice {
-      margin-top: 20px;
-      background: #fff8df;
-      border: 1px solid #f2d77b;
-      border-radius: 10px;
-      padding: 18px;
-      line-height: 1.6;
-    }
+.incident {
+  margin-top:22px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+}
 
-    .notice strong {
-      color: var(--navy);
-    }
+.incident-label {
+  display:inline-block;
+  background:#fde8e8;
+  color:var(--red);
+  font-size:11px;
+  font-weight:bold;
+  padding:6px 10px;
+  border-radius:5px;
+  margin-bottom:12px;
+}
 
-    footer {
-      text-align: center;
-      padding: 35px 15px;
-      color: var(--muted);
-      font-size: 12px;
-    }
+.incident h3 {
+  color:var(--navy);
+  margin-bottom:10px;
+  font-size:22px;
+}
 
-    @media (max-width: 700px) {
-      .preview-grid {
-        grid-template-columns: 1fr;
-      }
+.incident p {
+  color:var(--muted);
+  line-height:1.6;
+}
 
-      .status-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
+.choice-list {
+  display:grid;
+  gap:12px;
+  margin-top:20px;
+}
 
-      .welcome {
-        padding: 40px 20px;
-      }
-    }
+.choice-button {
+  background:#f3f6fa;
+  border:1px solid var(--border);
+  color:var(--navy);
+  text-align:left;
+  line-height:1.5;
+  padding:17px;
+}
 
-    @media (max-width: 380px) {
-      .status-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.choice-button:hover {
+  background:#e6eef8;
+}
+
+.choice-button:disabled {
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
+}
+
+.feedback {
+  display:none;
+  margin-top:20px;
+  padding:18px;
+  border-radius:10px;
+  line-height:1.6;
+}
+
+.feedback.good {
+  display:block;
+  background:#e6f5ec;
+  border:1px solid #a6d9b8;
+}
+
+.feedback.bad {
+  display:block;
+  background:#fff0e8;
+  border:1px solid #efc3ad;
+}
+
+.score-panel {
+  margin-top:20px;
+  background:var(--navy);
+  color:white;
+  border-radius:10px;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.score-panel strong {
+  color:var(--yellow);
+  font-size:25px;
+}
+
+footer {
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+@media(max-width:700px) {
+  .preview-grid {grid-template-columns:1fr;}
+  .status-grid {grid-template-columns:repeat(2,1fr);}
+  .welcome {padding:40px 20px;}
+}
+
+@media(max-width:380px) {
+  .status-grid {grid-template-columns:1fr;}
+}
+</style>
 </head>
 
 <body>
@@ -252,102 +312,120 @@
 
 <main>
 
-  <section class="welcome" id="welcomeScreen">
-    <div class="spark">✦</div>
-    <h1>Take Command of <span>the Warehouse</span></h1>
+<section class="welcome" id="welcomeScreen">
+  <div class="spark">✦</div>
+  <h1>Take Command of <span>the Warehouse</span></h1>
+  <p>
+    You are the Area Manager responsible for keeping a busy
+    fulfillment operation running. Manage equipment, coordinate
+    associates, resolve system incidents, and protect productivity
+    and safety throughout your shift.
+  </p>
+  <button class="start-button" onclick="startShift()">
+    START SHIFT →
+  </button>
+</section>
+
+<section id="previewSection">
+  <h2 class="section-heading">Your Responsibilities</h2>
+
+  <div class="preview-grid">
+    <div class="preview-card">
+      <div class="emoji">⚙️</div>
+      <h3>Systems & Equipment</h3>
+      <p>Monitor warehouse hardware, troubleshoot equipment failures, and coordinate repairs.</p>
+    </div>
+
+    <div class="preview-card">
+      <div class="emoji">👥</div>
+      <h3>People & Productivity</h3>
+      <p>Manage staffing, assign work, support associates, and maintain operational performance.</p>
+    </div>
+
+    <div class="preview-card">
+      <div class="emoji">🛡️</div>
+      <h3>Safety & Compliance</h3>
+      <p>Respond to safety concerns, investigate incidents, and maintain compliance.</p>
+    </div>
+  </div>
+</section>
+
+<section class="game-screen" id="gameScreen">
+
+  <div class="game-heading">
+    <h2>Shift 1: Operations Control</h2>
+    <p>Welcome, Area Manager. Your shift is now underway.</p>
+  </div>
+
+  <div class="status-grid">
+
+    <div class="status-card">
+      <p>Productivity</p>
+      <strong id="productivity">100%</strong>
+      <span>Operational performance</span>
+    </div>
+
+    <div class="status-card">
+      <p>Equipment Health</p>
+      <strong id="equipment">100%</strong>
+      <span>Systems availability</span>
+    </div>
+
+    <div class="status-card">
+      <p>Safety Score</p>
+      <strong id="safety">100%</strong>
+      <span>Safety compliance</span>
+    </div>
+
+    <div class="status-card">
+      <p>Associate Morale</p>
+      <strong id="morale">100%</strong>
+      <span>Team engagement</span>
+    </div>
+
+  </div>
+
+  <div class="score-panel">
+    <div>
+      <div>Management Decision Score</div>
+      <strong id="score">0</strong>
+    </div>
+    <div>Incident 1 of 1</div>
+  </div>
+
+  <section class="incident">
+    <div class="incident-label">CRITICAL INCIDENT</div>
+
+    <h3>⚙️ Conveyor System Failure</h3>
 
     <p>
-      You are the Area Manager responsible for keeping a busy
-      fulfillment operation running. Manage equipment, coordinate
-      associates, resolve system incidents, and protect productivity
-      and safety throughout your shift.
+      The main sorting conveyor has stopped working.
+      Packages are accumulating at the processing station.
+      Productivity is at risk, and the team needs direction.
     </p>
 
-    <button class="start-button" onclick="startShift()">
-      START SHIFT →
-    </button>
+    <h3 style="font-size:16px;margin-top:22px;">
+      Select your management response:
+    </h3>
+
+    <div class="choice-list">
+      <button class="choice-button" onclick="makeDecision(1)">
+        1. Dispatch maintenance and coordinate troubleshooting.
+      </button>
+
+      <button class="choice-button" onclick="makeDecision(2)">
+        2. Redirect packages to an alternate conveyor.
+      </button>
+
+      <button class="choice-button" onclick="makeDecision(3)">
+        3. Ignore the issue and continue normal operations.
+      </button>
+    </div>
+
+    <div id="feedback" class="feedback" aria-live="polite"></div>
   </section>
 
-  <section id="previewSection">
-    <h2 class="section-heading">Your Responsibilities</h2>
-
-    <div class="preview-grid">
-
-      <div class="preview-card">
-        <div class="emoji">⚙️</div>
-        <h3>Systems & Equipment</h3>
-        <p>
-          Monitor warehouse hardware, troubleshoot equipment failures,
-          and coordinate repairs.
-        </p>
-      </div>
-
-      <div class="preview-card">
-        <div class="emoji">👥</div>
-        <h3>People & Productivity</h3>
-        <p>
-          Manage staffing, assign work, support associates,
-          and maintain operational performance.
-        </p>
-      </div>
-
-      <div class="preview-card">
-        <div class="emoji">🛡️</div>
-        <h3>Safety & Compliance</h3>
-        <p>
-          Respond to safety concerns, investigate incidents,
-          and keep warehouse operations compliant.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <section class="game-screen" id="gameScreen">
-
-    <div class="game-heading">
-      <h2>Shift 1: Operations Control</h2>
-      <p>Welcome, Area Manager. Your shift is now underway.</p>
-    </div>
-
-    <div class="status-grid">
-
-      <div class="status-card">
-        <p>Productivity</p>
-        <strong>100%</strong>
-        <span>Operational performance</span>
-      </div>
-
-      <div class="status-card">
-        <p>Equipment Health</p>
-        <strong>100%</strong>
-        <span>Systems availability</span>
-      </div>
-
-      <div class="status-card">
-        <p>Safety Score</p>
-        <strong>100%</strong>
-        <span>Safety compliance</span>
-      </div>
-
-      <div class="status-card">
-        <p>Associate Morale</p>
-        <strong>100%</strong>
-        <span>Team engagement</span>
-      </div>
-
-    </div>
-
-    <div class="notice">
-      <strong>CONTROL ROOM NOTICE</strong>
-      <p>
-        Your warehouse is currently operating normally.
-        Stay alert. Operational incidents and management
-        challenges will be introduced as the game develops.
-      </p>
-    </div>
-
-  </section>
+</section>
 
 </main>
 
@@ -358,16 +436,108 @@
 </footer>
 
 <script>
-  function startShift() {
-    document.getElementById("welcomeScreen").style.display = "none";
-    document.getElementById("previewSection").style.display = "none";
-    document.getElementById("gameScreen").style.display = "block";
+const stats = {
+  productivity: 100,
+  equipment: 100,
+  safety: 100,
+  morale: 100,
+  score: 0
+};
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+let decisionMade = false;
+
+function startShift() {
+  document.getElementById("welcomeScreen").style.display = "none";
+  document.getElementById("previewSection").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function updateStats() {
+  document.getElementById("productivity").textContent =
+    stats.productivity + "%";
+
+  document.getElementById("equipment").textContent =
+    stats.equipment + "%";
+
+  document.getElementById("safety").textContent =
+    stats.safety + "%";
+
+  document.getElementById("morale").textContent =
+    stats.morale + "%";
+
+  document.getElementById("score").textContent =
+    stats.score;
+}
+
+function makeDecision(choice) {
+  if (decisionMade) return;
+
+  decisionMade = true;
+
+  const feedback = document.getElementById("feedback");
+  const buttons = document.querySelectorAll(".choice-button");
+
+  buttons.forEach(button => button.disabled = true);
+
+  let message = "";
+  let quality = "";
+
+  if (choice === 1) {
+    stats.productivity -= 5;
+    stats.equipment += 0;
+    stats.morale += 5;
+    stats.score += 100;
+
+    message =
+      "<strong>Good decision!</strong><br>" +
+      "You coordinated maintenance and initiated troubleshooting. " +
+      "The team has a clear response plan, and the equipment issue " +
+      "is being addressed. Productivity experiences a small temporary " +
+      "impact while repairs begin.";
+    quality = "good";
+
+  } else if (choice === 2) {
+    stats.productivity += 5;
+    stats.morale += 3;
+    stats.score += 90;
+
+    message =
+      "<strong>Strong operational decision!</strong><br>" +
+      "Redirecting packages protects workflow and limits downtime. " +
+      "Remember to coordinate maintenance and ensure the alternate " +
+      "conveyor has adequate capacity and is safe to use.";
+    quality = "good";
+
+  } else {
+    stats.productivity -= 20;
+    stats.equipment -= 10;
+    stats.safety -= 5;
+    stats.morale -= 15;
+
+    message =
+      "<strong>Poor decision!</strong><br>" +
+      "Ignoring the equipment failure allows the backlog to grow. " +
+      "Equipment problems need to be reported and addressed, " +
+      "and continued operation must follow safety procedures.";
+    quality = "bad";
   }
+
+  feedback.className = "feedback " + quality;
+  feedback.innerHTML = message;
+
+  updateStats();
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Decision Recorded";
+  heading.style.marginTop = "20px";
+  feedback.appendChild(heading);
+}
+
 </script>
 
 </body>
