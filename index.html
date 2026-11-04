@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -315,6 +316,72 @@ button:disabled {
 .completion-panel h3 {
   color: var(--green);
   margin-bottom: 10px;
+}
+
+/* SCANNER TROUBLESHOOTING MINI-GAME */
+
+.mini-game-panel {
+  display: none;
+  margin-top: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.mini-game-panel h3 {
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+
+.mini-game-intro {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.mini-game-progress {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.mini-game-question {
+  background: #f3f6fa;
+  border-left: 4px solid var(--yellow);
+  border-radius: 8px;
+  padding: 18px;
+  margin: 18px 0;
+  line-height: 1.6;
+}
+
+.mini-game-result {
+  display: none;
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+.mini-game-result.good {
+  display: block;
+  background: #e6f5ec;
+  border: 1px solid #a6d9b8;
+}
+
+.mini-game-result.bad {
+  display: block;
+  background: #fff0e8;
+  border: 1px solid #efc3ad;
+}
+
+.mini-game-actions {
+  display: none;
+  margin-top: 20px;
+  text-align: right;
 }
 
 /* SHIFT PERFORMANCE REPORT */
@@ -727,12 +794,77 @@ footer {
 
   </section>
 
+  <!-- SCANNER TROUBLESHOOTING MINI-GAME -->
+
+  <section class="mini-game-panel" id="scannerMiniGame">
+
+    <div class="incident-label">SYSTEMS SKILLS CHALLENGE</div>
+
+    <h3>🔧 Scanner Troubleshooting Challenge</h3>
+
+    <p class="mini-game-intro">
+      Your incident response has stabilized operations, but the
+      systems team needs your help diagnosing a scanner connectivity
+      problem. Complete both troubleshooting stages to earn additional
+      management points.
+    </p>
+
+    <div class="mini-game-progress">
+      <span id="miniGameStage">Stage 1 of 2</span>
+      <span id="miniGamePoints">Challenge Points: 0 / 100</span>
+    </div>
+
+    <div class="mini-game-question" id="miniGameQuestion">
+      <strong>Stage 1: Diagnose the Failure</strong>
+      <p style="margin-top:10px;">
+        Multiple scanners in the same warehouse zone stopped connecting
+        at approximately the same time. Their batteries are charged,
+        and scanners in other zones are working normally.
+
+        What is the most likely cause?
+      </p>
+    </div>
+
+    <div class="choice-list" id="miniGameChoices">
+
+      <button class="choice-button" onclick="answerMiniGame(1)">
+        1. A local wireless access point or network connectivity issue.
+      </button>
+
+      <button class="choice-button" onclick="answerMiniGame(2)">
+        2. All scanner batteries failed simultaneously.
+      </button>
+
+      <button class="choice-button" onclick="answerMiniGame(3)">
+        3. The package barcodes are damaged.
+      </button>
+
+    </div>
+
+    <div
+      class="mini-game-result"
+      id="miniGameFeedback"
+      aria-live="polite">
+    </div>
+
+    <div class="mini-game-actions" id="miniGameActions">
+      <button
+        class="primary-button"
+        id="miniGameContinue"
+        onclick="continueMiniGame()">
+        CONTINUE CHALLENGE →
+      </button>
+    </div>
+
+  </section>
+
   <!-- SHIFT COMPLETION MESSAGE -->
 
   <section class="completion-panel" id="completionPanel">
     <h3>✦ Shift Simulation Complete!</h3>
     <p>
-      You have completed all three warehouse systems incidents.
+      You have completed all three warehouse systems incidents
+      and the scanner troubleshooting challenge.
       Your Shift Performance Report is ready below.
     </p>
   </section>
@@ -750,7 +882,7 @@ footer {
 
     <div class="report-score">
       <p>FINAL MANAGEMENT DECISION SCORE</p>
-      <strong id="finalScore">0 / 300</strong>
+      <strong id="finalScore">0 / 400</strong>
       <span id="performanceRating">Performance Rating</span>
     </div>
 
@@ -787,8 +919,9 @@ footer {
     <div class="report-note">
       <strong>Performance insight:</strong>
       Your final score reflects the quality of your decisions across
-      the three incidents. Your KPI results show how those decisions
-      affected warehouse operations, equipment, safety, and associates.
+      the three incidents and the scanner troubleshooting challenge.
+      Your KPI results show how those decisions affected warehouse
+      operations, equipment, safety, and associates.
     </div>
 
     <div class="report-actions">
@@ -825,6 +958,11 @@ let scannerDecisionMade = false;
 let networkDecisionMade = false;
 
 let decisionRecords = [];
+
+let miniGameStage = 1;
+let miniGamePoints = 0;
+let miniGameAnswerMade = false;
+let miniGameComplete = false;
 
 const incidentOptions = {
   1: [
@@ -1155,7 +1293,213 @@ function makeNetworkDecision(choice) {
   document.getElementById("incidentCounter").textContent =
     "Incident 3 of 3 — Completed";
 
-  document.getElementById("completionPanel").style.display = "block";
+  // Start the scanner troubleshooting mini-game.
+
+  document.getElementById("scannerMiniGame").style.display = "block";
+
+  document.getElementById("incidentCounter").textContent =
+    "Scanner Troubleshooting Challenge";
+
+  window.scrollTo({
+    top: document.getElementById("scannerMiniGame").offsetTop - 20,
+    behavior: "smooth"
+  });
+}
+
+/* SCANNER TROUBLESHOOTING MINI-GAME */
+
+function answerMiniGame(choice) {
+  if (miniGameAnswerMade || miniGameComplete) return;
+  if (![1, 2, 3].includes(choice)) return;
+
+  miniGameAnswerMade = true;
+
+  const feedback = document.getElementById("miniGameFeedback");
+  const buttons = document.querySelectorAll(
+    "#miniGameChoices .choice-button"
+  );
+
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+
+  let message = "";
+  let quality = "";
+  let points = 0;
+
+  if (miniGameStage === 1) {
+
+    if (choice === 1) {
+      points = 50;
+      miniGamePoints += points;
+
+      message =
+        "<strong>Correct diagnosis! +50 points</strong><br>" +
+        "Because multiple scanners in one zone failed at the same " +
+        "time while other zones remain operational, a localized " +
+        "wireless access point or network connectivity issue is " +
+        "a likely cause. Your next step is to investigate the " +
+        "affected network area.";
+
+      quality = "good";
+
+    } else {
+      message =
+        "<strong>Incorrect diagnosis. 0 points</strong><br>" +
+        "The evidence points toward a shared connectivity issue. " +
+        "Charged batteries and functioning scanners in other zones " +
+        "make simultaneous battery failure or damaged barcodes " +
+        "less likely.";
+      quality = "bad";
+    }
+
+  } else if (miniGameStage === 2) {
+
+    if (choice === 1) {
+      points = 50;
+      miniGamePoints += points;
+
+      message =
+        "<strong>Excellent troubleshooting response! +50 points</strong><br>" +
+        "You would verify the access point and network status, " +
+        "document affected devices and locations, and escalate " +
+        "the findings to the network support team. This creates " +
+        "a clear path toward identifying and resolving the issue.";
+
+      quality = "good";
+
+    } else if (choice === 2) {
+      points = 35;
+      miniGamePoints += points;
+
+      message =
+        "<strong>Good operational recovery! +35 points</strong><br>" +
+        "Redirecting associates to approved work areas can reduce " +
+        "downtime. However, you should also investigate and report " +
+        "the network problem so the underlying cause is resolved.";
+
+      quality = "good";
+
+    } else {
+      message =
+        "<strong>Incorrect response. 0 points</strong><br>" +
+        "Repeatedly restarting devices without investigating the " +
+        "network issue may waste time and delay recovery. The " +
+        "shared failure should be documented and escalated.";
+      quality = "bad";
+    }
+  }
+
+  document.getElementById("miniGamePoints").textContent =
+    "Challenge Points: " + miniGamePoints + " / 100";
+
+  feedback.className = "mini-game-result " + quality;
+  feedback.innerHTML = message;
+
+  const actions = document.getElementById("miniGameActions");
+  actions.style.display = "block";
+
+  const continueButton = document.getElementById("miniGameContinue");
+
+  if (miniGameStage === 1) {
+    continueButton.textContent = "CONTINUE TO STAGE 2 →";
+  } else {
+    continueButton.textContent = "COMPLETE CHALLENGE →";
+  }
+
+  // Record the selected challenge response.
+
+  const responseText = buttons[choice - 1].textContent.trim();
+
+  decisionRecords.push({
+    incident: 4 + miniGameStage - 1,
+    title: miniGameStage === 1
+      ? "Scanner Challenge: Diagnose the Failure"
+      : "Scanner Challenge: Restore Operations",
+    response: responseText,
+    points: points
+  });
+}
+
+function continueMiniGame() {
+  if (!miniGameAnswerMade || miniGameComplete) return;
+
+  if (miniGameStage === 1) {
+    miniGameStage = 2;
+    miniGameAnswerMade = false;
+
+    document.getElementById("miniGameStage").textContent =
+      "Stage 2 of 2";
+
+    document.getElementById("miniGameQuestion").innerHTML =
+      "<strong>Stage 2: Restore Operations</strong>" +
+      "<p style='margin-top:10px;'>" +
+      "Your investigation indicates that the wireless access point " +
+      "serving the affected zone may have lost connectivity. " +
+      "What is the best next management response?" +
+      "</p>";
+
+    document.getElementById("miniGameChoices").innerHTML = `
+      <button class="choice-button" onclick="answerMiniGame(1)">
+        1. Verify access point and network status, document affected
+        devices and locations, and escalate findings to network support.
+      </button>
+
+      <button class="choice-button" onclick="answerMiniGame(2)">
+        2. Redirect associates to approved unaffected work areas
+        while the technical team investigates.
+      </button>
+
+      <button class="choice-button" onclick="answerMiniGame(3)">
+        3. Tell associates to keep restarting their scanners
+        without reporting the access point issue.
+      </button>
+    `;
+
+    document.getElementById("miniGameFeedback").className =
+      "mini-game-result";
+
+    document.getElementById("miniGameFeedback").innerHTML = "";
+
+    document.getElementById("miniGameActions").style.display =
+      "none";
+
+    window.scrollTo({
+      top: document.getElementById("scannerMiniGame").offsetTop - 20,
+      behavior: "smooth"
+    });
+
+  } else {
+    finishMiniGame();
+  }
+}
+
+function finishMiniGame() {
+  miniGameComplete = true;
+
+  document.getElementById("miniGameStage").textContent =
+    "Challenge Complete";
+
+  document.getElementById("miniGameChoices").style.display =
+    "none";
+
+  document.getElementById("miniGameActions").style.display =
+    "none";
+
+  document.getElementById("miniGameFeedback").className =
+    "mini-game-result good";
+
+  document.getElementById("miniGameFeedback").innerHTML =
+    "<strong>Scanner Troubleshooting Challenge Complete!</strong><br>" +
+    "You earned " + miniGamePoints + " out of 100 available " +
+    "challenge points. Your performance has been added to your " +
+    "Shift Performance Report.";
+
+  document.getElementById("incidentCounter").textContent =
+    "All Challenges Completed";
+
+  document.getElementById("completionPanel").style.display =
+    "block";
 
   showPerformanceReport();
 
@@ -1171,7 +1515,7 @@ function showPerformanceReport() {
   document.getElementById("reportPanel").style.display = "block";
 
   document.getElementById("finalScore").textContent =
-    stats.score + " / 300";
+    stats.score + " / 400";
 
   document.getElementById("reportProductivity").textContent =
     stats.productivity + "%";
@@ -1187,11 +1531,11 @@ function showPerformanceReport() {
 
   let rating = "";
 
-  if (stats.score >= 270) {
+  if (stats.score >= 360) {
     rating = "Excellent Performance";
-  } else if (stats.score >= 240) {
+  } else if (stats.score >= 320) {
     rating = "Strong Performance";
-  } else if (stats.score >= 180) {
+  } else if (stats.score >= 240) {
     rating = "Developing Performance";
   } else {
     rating = "Needs Improvement";
@@ -1215,7 +1559,8 @@ function showPerformanceReport() {
     item.className = "decision-item";
 
     const heading = document.createElement("h4");
-    heading.textContent = incidentNames[record.incident];
+    heading.textContent =
+      record.title || incidentNames[record.incident];
 
     const response = document.createElement("p");
     response.textContent = "Selected response: " + record.response;
@@ -1247,31 +1592,76 @@ function restartShift() {
 
   decisionRecords = [];
 
+  // Reset mini-game variables.
+
+  miniGameStage = 1;
+  miniGamePoints = 0;
+  miniGameAnswerMade = false;
+  miniGameComplete = false;
+
   // Reset incident visibility.
 
   document.getElementById("incident1").style.display = "block";
   document.getElementById("incident2").style.display = "none";
   document.getElementById("incident3").style.display = "none";
 
+  document.getElementById("scannerMiniGame").style.display = "none";
+
   // Reset feedback messages.
 
   const feedbackIds = [
     "feedback",
     "scannerFeedback",
-    "networkFeedback"
+    "networkFeedback",
+    "miniGameFeedback"
   ];
 
   feedbackIds.forEach(id => {
     const feedback = document.getElementById(id);
-    feedback.className = "feedback";
+    feedback.className = id === "miniGameFeedback"
+      ? "mini-game-result"
+      : "feedback";
     feedback.innerHTML = "";
   });
 
-  // Reset all incident decision buttons.
+  // Reset incident decision buttons.
 
   document.querySelectorAll(".choice-button").forEach(button => {
     button.disabled = false;
   });
+
+  // Reset mini-game content.
+
+  document.getElementById("miniGameStage").textContent =
+    "Stage 1 of 2";
+
+  document.getElementById("miniGamePoints").textContent =
+    "Challenge Points: 0 / 100";
+
+  document.getElementById("miniGameQuestion").innerHTML =
+    "<strong>Stage 1: Diagnose the Failure</strong>" +
+    "<p style='margin-top:10px;'>" +
+    "Multiple scanners in the same warehouse zone stopped connecting " +
+    "at approximately the same time. Their batteries are charged, " +
+    "and scanners in other zones are working normally. " +
+    "What is the most likely cause?" +
+    "</p>";
+
+  document.getElementById("miniGameChoices").innerHTML = `
+    <button class="choice-button" onclick="answerMiniGame(1)">
+      1. A local wireless access point or network connectivity issue.
+    </button>
+
+    <button class="choice-button" onclick="answerMiniGame(2)">
+      2. All scanner batteries failed simultaneously.
+    </button>
+
+    <button class="choice-button" onclick="answerMiniGame(3)">
+      3. The package barcodes are damaged.
+    </button>
+  `;
+
+  document.getElementById("miniGameChoices").style.display = "grid";
 
   // Hide transition buttons and report.
 
@@ -1279,6 +1669,8 @@ function restartShift() {
 
   document.getElementById("continueToIncident3").style.display =
     "none";
+
+  document.getElementById("miniGameActions").style.display = "none";
 
   document.getElementById("completionPanel").style.display = "none";
 
