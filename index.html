@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -449,7 +448,7 @@ footer {
       <strong id="score">0</strong>
     </div>
 
-    <div id="incidentCounter">Incident 1 of 2</div>
+    <div id="incidentCounter">Incident 1 of 3</div>
   </div>
 
   <!-- INCIDENT 1 -->
@@ -536,12 +535,61 @@ footer {
 
     <div id="scannerFeedback" class="feedback" aria-live="polite"></div>
 
+    <div class="continue-area" id="continueToIncident3">
+      <button class="primary-button" onclick="showIncident3()">
+        CONTINUE TO INCIDENT 3 →
+      </button>
+    </div>
+
+  </section>
+
+  <!-- INCIDENT 3 -->
+
+  <section class="incident" id="incident3" style="display:none;">
+
+    <div class="incident-label">NETWORK SYSTEMS INCIDENT</div>
+
+    <h3>🌐 Warehouse Network Connectivity Failure</h3>
+
+    <p>
+      Associates in several warehouse areas report that their workstations
+      and connected devices cannot reach the warehouse network. Scanning
+      and processing tasks are delayed, and teams are unsure which areas
+      are affected. You must coordinate a safe operational response while
+      the network issue is investigated.
+    </p>
+
+    <h3 style="font-size:16px;margin-top:22px;">
+      Select your management response:
+    </h3>
+
+    <div class="choice-list">
+
+      <button class="choice-button" onclick="makeNetworkDecision(1)">
+        1. Check the scope of the connectivity issue, document affected
+        areas, and escalate findings to IT support.
+      </button>
+
+      <button class="choice-button" onclick="makeNetworkDecision(2)">
+        2. Coordinate approved backup procedures and redirect associates
+        to unaffected work areas while IT investigates.
+      </button>
+
+      <button class="choice-button" onclick="makeNetworkDecision(3)">
+        3. Ignore the outage and tell associates to keep retrying
+        without reporting the network problem.
+      </button>
+
+    </div>
+
+    <div id="networkFeedback" class="feedback" aria-live="polite"></div>
+
   </section>
 
   <section class="completion-panel" id="completionPanel">
     <h3>✦ Shift Simulation Complete!</h3>
     <p>
-      You have completed both warehouse systems incidents.
+      You have completed all three warehouse systems incidents.
       Review your management decision score and operational KPIs
       to evaluate your performance.
     </p>
@@ -568,6 +616,7 @@ const stats = {
 
 let decisionMade = false;
 let scannerDecisionMade = false;
+let networkDecisionMade = false;
 
 function startShift() {
   document.getElementById("welcomeScreen").style.display = "none";
@@ -689,7 +738,7 @@ function showIncident2() {
   document.getElementById("incident1").style.display = "none";
   document.getElementById("incident2").style.display = "block";
   document.getElementById("incidentCounter").textContent =
-    "Incident 2 of 2";
+    "Incident 2 of 3";
 
   window.scrollTo({
     top: 0,
@@ -771,7 +820,101 @@ function makeScannerDecision(choice) {
   feedback.appendChild(heading);
 
   document.getElementById("incidentCounter").textContent =
-    "2 of 2 — Completed";
+    "Incident 2 of 3 — Completed";
+
+  document.getElementById("continueToIncident3").style.display = "block";
+}
+
+function showIncident3() {
+  if (!scannerDecisionMade) return;
+
+  document.getElementById("incident2").style.display = "none";
+  document.getElementById("incident3").style.display = "block";
+  document.getElementById("incidentCounter").textContent =
+    "Incident 3 of 3";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function makeNetworkDecision(choice) {
+  if (networkDecisionMade) return;
+
+  if (![1, 2, 3].includes(choice)) return;
+
+  networkDecisionMade = true;
+
+  const feedback = document.getElementById("networkFeedback");
+  const buttons = document.querySelectorAll(
+    "#incident3 .choice-button"
+  );
+
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+
+  let message = "";
+  let quality = "";
+
+  if (choice === 1) {
+
+    stats.score += 100;
+    stats.productivity -= 5;
+
+    message =
+      "<strong>Excellent network response!</strong><br>" +
+      "You assessed the scope of the outage, documented affected " +
+      "areas, and escalated useful findings to IT support. Clear " +
+      "incident information helps technical teams isolate the issue " +
+      "and coordinate restoration.";
+
+    quality = "good";
+
+  } else if (choice === 2) {
+
+    stats.score += 90;
+    stats.productivity += 3;
+    stats.morale += 2;
+
+    message =
+      "<strong>Strong operational continuity decision!</strong><br>" +
+      "You kept associates focused on approved work in unaffected " +
+      "areas while IT investigates. Continue communicating which " +
+      "systems and work areas are available, and follow site procedures.";
+
+    quality = "good";
+
+  } else {
+
+    stats.score += 0;
+    stats.productivity -= 20;
+    stats.morale -= 10;
+
+    message =
+      "<strong>Poor systems response!</strong><br>" +
+      "Ignoring the network outage delays diagnosis and allows " +
+      "operational disruption to continue. Connectivity problems " +
+      "should be documented and escalated through the appropriate " +
+      "technical support process.";
+
+    quality = "bad";
+  }
+
+  updateStats();
+
+  feedback.className = "feedback " + quality;
+  feedback.innerHTML = message;
+
+  const heading = document.createElement("h3");
+  heading.textContent = "Decision Recorded";
+  heading.style.marginTop = "20px";
+
+  feedback.appendChild(heading);
+
+  document.getElementById("incidentCounter").textContent =
+    "Incident 3 of 3 — Completed";
 
   document.getElementById("completionPanel").style.display = "block";
 
