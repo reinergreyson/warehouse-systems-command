@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -317,8 +318,6 @@ button:disabled {
   margin-bottom: 10px;
 }
 
-/* SCANNER TROUBLESHOOTING MINI-GAME */
-
 .mini-game-panel {
   display: none;
   margin-top: 22px;
@@ -382,8 +381,6 @@ button:disabled {
   margin-top: 20px;
   text-align: right;
 }
-
-/* SHIFT PERFORMANCE REPORT */
 
 .report-panel {
   display: none;
@@ -564,16 +561,13 @@ footer {
 
 <section class="welcome" id="welcomeScreen">
   <div class="spark">✦</div>
-
   <h1>Take Command of <span>the Warehouse</span></h1>
-
   <p>
     You are the Area Manager responsible for keeping a busy
     fulfillment operation running. Manage equipment, coordinate
     associates, resolve system incidents, and protect productivity
     and safety throughout your shift.
   </p>
-
   <button class="start-button" onclick="startShift()">
     START SHIFT →
   </button>
@@ -581,36 +575,22 @@ footer {
 
 <section id="previewSection">
   <h2 class="section-heading">Your Responsibilities</h2>
-
   <div class="preview-grid">
-
     <div class="preview-card">
       <div class="emoji">⚙️</div>
       <h3>Systems & Equipment</h3>
-      <p>
-        Monitor warehouse hardware, troubleshoot equipment failures,
-        and coordinate repairs.
-      </p>
+      <p>Monitor warehouse hardware, troubleshoot equipment failures, and coordinate repairs.</p>
     </div>
-
     <div class="preview-card">
       <div class="emoji">👥</div>
       <h3>People & Productivity</h3>
-      <p>
-        Manage staffing, assign work, support associates,
-        and maintain operational performance.
-      </p>
+      <p>Manage staffing, assign work, support associates, and maintain operational performance.</p>
     </div>
-
     <div class="preview-card">
       <div class="emoji">🛡️</div>
       <h3>Safety & Compliance</h3>
-      <p>
-        Respond to safety concerns, investigate incidents,
-        and maintain compliance.
-      </p>
+      <p>Respond to safety concerns, investigate incidents, and maintain compliance.</p>
     </div>
-
   </div>
 </section>
 
@@ -622,31 +602,26 @@ footer {
   </div>
 
   <div class="status-grid">
-
     <div class="status-card">
       <p>Productivity</p>
       <strong id="productivity">100%</strong>
       <span>Operational performance</span>
     </div>
-
     <div class="status-card">
       <p>Equipment Health</p>
       <strong id="equipment">100%</strong>
       <span>Systems availability</span>
     </div>
-
     <div class="status-card">
       <p>Safety Score</p>
       <strong id="safety">100%</strong>
       <span>Safety compliance</span>
     </div>
-
     <div class="status-card">
       <p>Associate Morale</p>
       <strong id="morale">100%</strong>
       <span>Team engagement</span>
     </div>
-
   </div>
 
   <div class="score-panel">
@@ -654,110 +629,56 @@ footer {
       <div>Management Decision Score</div>
       <strong id="score">0</strong>
     </div>
-
     <div id="incidentCounter">Incident 1 of 3</div>
   </div>
 
   <!-- INCIDENT 1 -->
-
   <section class="incident" id="incident1">
-
     <div class="incident-label">CRITICAL INCIDENT</div>
-
     <h3>⚙️ Conveyor System Failure</h3>
-
     <p>
       The main sorting conveyor has stopped working.
       Packages are accumulating at the processing station.
       Productivity is at risk, and the team needs direction.
     </p>
-
-    <h3 style="font-size:16px;margin-top:22px;">
-      Select your management response:
-    </h3>
-
+    <h3 style="font-size:16px;margin-top:22px;">Select your management response:</h3>
     <div class="choice-list">
-
-      <button class="choice-button" onclick="makeDecision(1)">
-        1. Dispatch maintenance and coordinate troubleshooting.
-      </button>
-
-      <button class="choice-button" onclick="makeDecision(2)">
-        2. Redirect packages to an alternate conveyor.
-      </button>
-
-      <button class="choice-button" onclick="makeDecision(3)">
-        3. Ignore the issue and continue normal operations.
-      </button>
-
+      <button class="choice-button" onclick="makeDecision(1)">1. Dispatch maintenance and coordinate troubleshooting.</button>
+      <button class="choice-button" onclick="makeDecision(2)">2. Redirect packages to an alternate conveyor.</button>
+      <button class="choice-button" onclick="makeDecision(3)">3. Ignore the issue and continue normal operations.</button>
     </div>
-
     <div id="feedback" class="feedback" aria-live="polite"></div>
-
     <div class="continue-area" id="continueArea">
-      <button class="primary-button" onclick="showIncident2()">
-        CONTINUE TO INCIDENT 2 →
-      </button>
+      <button class="primary-button" onclick="showIncident2()">CONTINUE TO INCIDENT 2 →</button>
     </div>
-
   </section>
 
   <!-- INCIDENT 2 -->
-
   <section class="incident" id="incident2" style="display:none;">
-
     <div class="incident-label">SYSTEMS INCIDENT</div>
-
     <h3>📡 Barcode Scanner System Failure</h3>
-
     <p>
       Several associates report that their handheld barcode scanners
       are not connecting to the warehouse system. Packages are
       accumulating because items cannot be scanned and processed.
       You need to identify the problem and restore normal workflow.
     </p>
-
-    <h3 style="font-size:16px;margin-top:22px;">
-      Select your management response:
-    </h3>
-
+    <h3 style="font-size:16px;margin-top:22px;">Select your management response:</h3>
     <div class="choice-list">
-
-      <button class="choice-button" onclick="makeScannerDecision(1)">
-        1. Check scanner connectivity, troubleshoot the devices,
-        and contact technical support if needed.
-      </button>
-
-      <button class="choice-button" onclick="makeScannerDecision(2)">
-        2. Issue available replacement scanners and coordinate
-        associates while the affected devices are investigated.
-      </button>
-
-      <button class="choice-button" onclick="makeScannerDecision(3)">
-        3. Tell associates to keep retrying without investigating
-        the scanner connection problem.
-      </button>
-
+      <button class="choice-button" onclick="makeScannerDecision(1)">1. Check scanner connectivity, troubleshoot the devices, and contact technical support if needed.</button>
+      <button class="choice-button" onclick="makeScannerDecision(2)">2. Issue available replacement scanners and coordinate associates while the affected devices are investigated.</button>
+      <button class="choice-button" onclick="makeScannerDecision(3)">3. Tell associates to keep retrying without investigating the scanner connection problem.</button>
     </div>
-
     <div id="scannerFeedback" class="feedback" aria-live="polite"></div>
-
     <div class="continue-area" id="continueToIncident3">
-      <button class="primary-button" onclick="showIncident3()">
-        CONTINUE TO INCIDENT 3 →
-      </button>
+      <button class="primary-button" onclick="showIncident3()">CONTINUE TO INCIDENT 3 →</button>
     </div>
-
   </section>
 
   <!-- INCIDENT 3 -->
-
   <section class="incident" id="incident3" style="display:none;">
-
     <div class="incident-label">NETWORK SYSTEMS INCIDENT</div>
-
     <h3>🌐 Warehouse Network Connectivity Failure</h3>
-
     <p>
       Associates in several warehouse areas report that their workstations
       and connected devices cannot reach the warehouse network. Scanning
@@ -765,42 +686,19 @@ footer {
       are affected. You must coordinate a safe operational response while
       the network issue is investigated.
     </p>
-
-    <h3 style="font-size:16px;margin-top:22px;">
-      Select your management response:
-    </h3>
-
+    <h3 style="font-size:16px;margin-top:22px;">Select your management response:</h3>
     <div class="choice-list">
-
-      <button class="choice-button" onclick="makeNetworkDecision(1)">
-        1. Check the scope of the connectivity issue, document affected
-        areas, and escalate findings to IT support.
-      </button>
-
-      <button class="choice-button" onclick="makeNetworkDecision(2)">
-        2. Coordinate approved backup procedures and redirect associates
-        to unaffected work areas while IT investigates.
-      </button>
-
-      <button class="choice-button" onclick="makeNetworkDecision(3)">
-        3. Ignore the outage and tell associates to keep retrying
-        without reporting the network problem.
-      </button>
-
+      <button class="choice-button" onclick="makeNetworkDecision(1)">1. Check the scope of the connectivity issue, document affected areas, and escalate findings to IT support.</button>
+      <button class="choice-button" onclick="makeNetworkDecision(2)">2. Coordinate approved backup procedures and redirect associates to unaffected work areas while IT investigates.</button>
+      <button class="choice-button" onclick="makeNetworkDecision(3)">3. Ignore the outage and tell associates to keep retrying without reporting the network problem.</button>
     </div>
-
     <div id="networkFeedback" class="feedback" aria-live="polite"></div>
-
   </section>
 
-  <!-- SCANNER TROUBLESHOOTING MINI-GAME -->
-
+  <!-- SCANNER MINI-GAME -->
   <section class="mini-game-panel" id="scannerMiniGame">
-
     <div class="incident-label">SYSTEMS SKILLS CHALLENGE</div>
-
     <h3>🔧 Scanner Troubleshooting Challenge</h3>
-
     <p class="mini-game-intro">
       Your incident response has stabilized operations, but the
       systems team needs your help diagnosing a scanner connectivity
@@ -819,46 +717,24 @@ footer {
         Multiple scanners in the same warehouse zone stopped connecting
         at approximately the same time. Their batteries are charged,
         and scanners in other zones are working normally.
-
         What is the most likely cause?
       </p>
     </div>
 
     <div class="choice-list" id="miniGameChoices">
-
-      <button class="choice-button" onclick="answerMiniGame(1)">
-        1. A local wireless access point or network connectivity issue.
-      </button>
-
-      <button class="choice-button" onclick="answerMiniGame(2)">
-        2. All scanner batteries failed simultaneously.
-      </button>
-
-      <button class="choice-button" onclick="answerMiniGame(3)">
-        3. The package barcodes are damaged.
-      </button>
-
+      <button class="choice-button" onclick="answerMiniGame(1)">1. A local wireless access point or network connectivity issue.</button>
+      <button class="choice-button" onclick="answerMiniGame(2)">2. All scanner batteries failed simultaneously.</button>
+      <button class="choice-button" onclick="answerMiniGame(3)">3. The package barcodes are damaged.</button>
     </div>
 
-    <div
-      class="mini-game-result"
-      id="miniGameFeedback"
-      aria-live="polite">
-    </div>
+    <div class="mini-game-result" id="miniGameFeedback" aria-live="polite"></div>
 
     <div class="mini-game-actions" id="miniGameActions">
-      <button
-        class="primary-button"
-        id="miniGameContinue"
-        onclick="continueMiniGame()">
-        CONTINUE CHALLENGE →
-      </button>
+      <button class="primary-button" id="miniGameContinue" onclick="continueMiniGame()">CONTINUE CHALLENGE →</button>
     </div>
-
   </section>
 
-  <!-- SHIFT COMPLETION MESSAGE -->
-
+  <!-- COMPLETION MESSAGE -->
   <section class="completion-panel" id="completionPanel">
     <h3>✦ Shift Simulation Complete!</h3>
     <p>
@@ -868,12 +744,9 @@ footer {
     </p>
   </section>
 
-  <!-- SHIFT PERFORMANCE REPORT -->
-
+  <!-- PERFORMANCE REPORT -->
   <section class="report-panel" id="reportPanel">
-
     <h2>📊 Shift Performance Report</h2>
-
     <p class="report-intro">
       Your shift is complete. Review your management decisions,
       operational KPIs, and overall performance.
@@ -886,33 +759,14 @@ footer {
     </div>
 
     <h3 class="report-section-title">Final Operational KPIs</h3>
-
     <div class="report-kpis">
-
-      <div class="report-kpi">
-        <p>Productivity</p>
-        <strong id="reportProductivity">100%</strong>
-      </div>
-
-      <div class="report-kpi">
-        <p>Equipment Health</p>
-        <strong id="reportEquipment">100%</strong>
-      </div>
-
-      <div class="report-kpi">
-        <p>Safety Score</p>
-        <strong id="reportSafety">100%</strong>
-      </div>
-
-      <div class="report-kpi">
-        <p>Associate Morale</p>
-        <strong id="reportMorale">100%</strong>
-      </div>
-
+      <div class="report-kpi"><p>Productivity</p><strong id="reportProductivity">100%</strong></div>
+      <div class="report-kpi"><p>Equipment Health</p><strong id="reportEquipment">100%</strong></div>
+      <div class="report-kpi"><p>Safety Score</p><strong id="reportSafety">100%</strong></div>
+      <div class="report-kpi"><p>Associate Morale</p><strong id="reportMorale">100%</strong></div>
     </div>
 
     <h3 class="report-section-title">Incident Decision Summary</h3>
-
     <div class="decision-list" id="decisionSummary"></div>
 
     <div class="report-note">
@@ -924,15 +778,11 @@ footer {
     </div>
 
     <div class="report-actions">
-      <button class="restart-button" onclick="restartShift()">
-        ↻ RESTART SHIFT
-      </button>
+      <button class="restart-button" onclick="restartShift()">↻ RESTART SHIFT</button>
     </div>
-
   </section>
 
 </section>
-
 </main>
 
 <footer>
@@ -986,10 +836,7 @@ function startShift() {
   document.getElementById("previewSection").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function clampStat(value) {
@@ -1002,20 +849,11 @@ function updateStats() {
   stats.safety = clampStat(stats.safety);
   stats.morale = clampStat(stats.morale);
 
-  document.getElementById("productivity").textContent =
-    stats.productivity + "%";
-
-  document.getElementById("equipment").textContent =
-    stats.equipment + "%";
-
-  document.getElementById("safety").textContent =
-    stats.safety + "%";
-
-  document.getElementById("morale").textContent =
-    stats.morale + "%";
-
-  document.getElementById("score").textContent =
-    stats.score;
+  document.getElementById("productivity").textContent = stats.productivity + "%";
+  document.getElementById("equipment").textContent = stats.equipment + "%";
+  document.getElementById("safety").textContent = stats.safety + "%";
+  document.getElementById("morale").textContent = stats.morale + "%";
+  document.getElementById("score").textContent = stats.score;
 }
 
 function recordDecision(incidentNumber, choice, points) {
@@ -1027,19 +865,14 @@ function recordDecision(incidentNumber, choice, points) {
 }
 
 function makeDecision(choice) {
-  if (decisionMade) return;
-  if (![1, 2, 3].includes(choice)) return;
+  if (decisionMade || ![1, 2, 3].includes(choice)) return;
 
   decisionMade = true;
 
   const feedback = document.getElementById("feedback");
-  const buttons = document.querySelectorAll(
-    "#incident1 .choice-button"
-  );
+  const buttons = document.querySelectorAll("#incident1 .choice-button");
 
-  buttons.forEach(button => {
-    button.disabled = true;
-  });
+  buttons.forEach(button => button.disabled = true);
 
   let message = "";
   let quality = "";
@@ -1078,7 +911,6 @@ function makeDecision(choice) {
     stats.equipment -= 10;
     stats.safety -= 5;
     stats.morale -= 15;
-    points = 0;
 
     message =
       "<strong>Poor decision!</strong><br>" +
@@ -1098,7 +930,6 @@ function makeDecision(choice) {
   const heading = document.createElement("h3");
   heading.textContent = "Decision Recorded";
   heading.style.marginTop = "20px";
-
   feedback.appendChild(heading);
 
   document.getElementById("continueArea").style.display = "block";
@@ -1109,30 +940,20 @@ function showIncident2() {
 
   document.getElementById("incident1").style.display = "none";
   document.getElementById("incident2").style.display = "block";
+  document.getElementById("incidentCounter").textContent = "Incident 2 of 3";
 
-  document.getElementById("incidentCounter").textContent =
-    "Incident 2 of 3";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function makeScannerDecision(choice) {
-  if (scannerDecisionMade) return;
-  if (![1, 2, 3].includes(choice)) return;
+  if (scannerDecisionMade || ![1, 2, 3].includes(choice)) return;
 
   scannerDecisionMade = true;
 
   const feedback = document.getElementById("scannerFeedback");
-  const buttons = document.querySelectorAll(
-    "#incident2 .choice-button"
-  );
+  const buttons = document.querySelectorAll("#incident2 .choice-button");
 
-  buttons.forEach(button => {
-    button.disabled = true;
-  });
+  buttons.forEach(button => button.disabled = true);
 
   let message = "";
   let quality = "";
@@ -1170,7 +991,6 @@ function makeScannerDecision(choice) {
   } else {
     stats.productivity -= 15;
     stats.morale -= 5;
-    points = 0;
 
     message =
       "<strong>Poor systems response!</strong><br>" +
@@ -1190,7 +1010,6 @@ function makeScannerDecision(choice) {
   const heading = document.createElement("h3");
   heading.textContent = "Decision Recorded";
   heading.style.marginTop = "20px";
-
   feedback.appendChild(heading);
 
   document.getElementById("incidentCounter").textContent =
@@ -1204,30 +1023,22 @@ function showIncident3() {
 
   document.getElementById("incident2").style.display = "none";
   document.getElementById("incident3").style.display = "block";
+  document.getElementById("incidentCounter").textContent = "Incident 3 of 3";
 
-  document.getElementById("incidentCounter").textContent =
-    "Incident 3 of 3";
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* INCIDENT 3 — SHOW MINI-GAME, NOT THE REPORT */
+
 function makeNetworkDecision(choice) {
-  if (networkDecisionMade) return;
-  if (![1, 2, 3].includes(choice)) return;
+  if (networkDecisionMade || ![1, 2, 3].includes(choice)) return;
 
   networkDecisionMade = true;
 
   const feedback = document.getElementById("networkFeedback");
-  const buttons = document.querySelectorAll(
-    "#incident3 .choice-button"
-  );
+  const buttons = document.querySelectorAll("#incident3 .choice-button");
 
-  buttons.forEach(button => {
-    button.disabled = true;
-  });
+  buttons.forEach(button => button.disabled = true);
 
   let message = "";
   let quality = "";
@@ -1262,10 +1073,8 @@ function makeNetworkDecision(choice) {
     quality = "good";
 
   } else {
-    stats.score += 0;
     stats.productivity -= 20;
     stats.morale -= 10;
-    points = 0;
 
     message =
       "<strong>Poor systems response!</strong><br>" +
@@ -1286,22 +1095,23 @@ function makeNetworkDecision(choice) {
   const heading = document.createElement("h3");
   heading.textContent = "Decision Recorded";
   heading.style.marginTop = "20px";
-
   feedback.appendChild(heading);
 
-  document.getElementById("incidentCounter").textContent =
-    "Incident 3 of 3 — Completed";
+  // Explicitly keep the report and completion panel hidden.
+  document.getElementById("completionPanel").style.display = "none";
+  document.getElementById("reportPanel").style.display = "none";
 
-  // Start the scanner troubleshooting mini-game.
+  // Reveal the mini-game after Incident 3.
+  const miniGame = document.getElementById("scannerMiniGame");
+  miniGame.style.display = "block";
 
-  document.getElementById("scannerMiniGame").style.display = "block";
-
+  document.getElementById("miniGameChoices").style.display = "grid";
   document.getElementById("incidentCounter").textContent =
     "Scanner Troubleshooting Challenge";
 
-  window.scrollTo({
-    top: document.getElementById("scannerMiniGame").offsetTop - 20,
-    behavior: "smooth"
+  miniGame.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
   });
 }
 
@@ -1314,20 +1124,15 @@ function answerMiniGame(choice) {
   miniGameAnswerMade = true;
 
   const feedback = document.getElementById("miniGameFeedback");
-  const buttons = document.querySelectorAll(
-    "#miniGameChoices .choice-button"
-  );
+  const buttons = document.querySelectorAll("#miniGameChoices .choice-button");
 
-  buttons.forEach(button => {
-    button.disabled = true;
-  });
+  buttons.forEach(button => button.disabled = true);
 
   let message = "";
   let quality = "";
   let points = 0;
 
   if (miniGameStage === 1) {
-
     if (choice === 1) {
       points = 50;
       miniGamePoints += points;
@@ -1349,11 +1154,11 @@ function answerMiniGame(choice) {
         "Charged batteries and functioning scanners in other zones " +
         "make simultaneous battery failure or damaged barcodes " +
         "less likely.";
+
       quality = "bad";
     }
 
-  } else if (miniGameStage === 2) {
-
+  } else {
     if (choice === 1) {
       points = 50;
       miniGamePoints += points;
@@ -1385,6 +1190,7 @@ function answerMiniGame(choice) {
         "Repeatedly restarting devices without investigating the " +
         "network issue may waste time and delay recovery. The " +
         "shared failure should be documented and escalated.";
+
       quality = "bad";
     }
   }
@@ -1395,18 +1201,13 @@ function answerMiniGame(choice) {
   feedback.className = "mini-game-result " + quality;
   feedback.innerHTML = message;
 
-  const actions = document.getElementById("miniGameActions");
-  actions.style.display = "block";
+  document.getElementById("miniGameActions").style.display = "block";
 
   const continueButton = document.getElementById("miniGameContinue");
 
-  if (miniGameStage === 1) {
-    continueButton.textContent = "CONTINUE TO STAGE 2 →";
-  } else {
-    continueButton.textContent = "COMPLETE CHALLENGE →";
-  }
-
-  // Record the selected challenge response.
+  continueButton.textContent = miniGameStage === 1
+    ? "CONTINUE TO STAGE 2 →"
+    : "COMPLETE CHALLENGE →";
 
   const responseText = buttons[choice - 1].textContent.trim();
 
@@ -1427,8 +1228,7 @@ function continueMiniGame() {
     miniGameStage = 2;
     miniGameAnswerMade = false;
 
-    document.getElementById("miniGameStage").textContent =
-      "Stage 2 of 2";
+    document.getElementById("miniGameStage").textContent = "Stage 2 of 2";
 
     document.getElementById("miniGameQuestion").innerHTML =
       "<strong>Stage 2: Restore Operations</strong>" +
@@ -1455,13 +1255,9 @@ function continueMiniGame() {
       </button>
     `;
 
-    document.getElementById("miniGameFeedback").className =
-      "mini-game-result";
-
+    document.getElementById("miniGameFeedback").className = "mini-game-result";
     document.getElementById("miniGameFeedback").innerHTML = "";
-
-    document.getElementById("miniGameActions").style.display =
-      "none";
+    document.getElementById("miniGameActions").style.display = "none";
 
     window.scrollTo({
       top: document.getElementById("scannerMiniGame").offsetTop - 20,
@@ -1474,16 +1270,13 @@ function continueMiniGame() {
 }
 
 function finishMiniGame() {
+  if (miniGameComplete) return;
+
   miniGameComplete = true;
 
-  document.getElementById("miniGameStage").textContent =
-    "Challenge Complete";
-
-  document.getElementById("miniGameChoices").style.display =
-    "none";
-
-  document.getElementById("miniGameActions").style.display =
-    "none";
+  document.getElementById("miniGameStage").textContent = "Challenge Complete";
+  document.getElementById("miniGameChoices").style.display = "none";
+  document.getElementById("miniGameActions").style.display = "none";
 
   document.getElementById("miniGameFeedback").className =
     "mini-game-result good";
@@ -1497,9 +1290,9 @@ function finishMiniGame() {
   document.getElementById("incidentCounter").textContent =
     "All Challenges Completed";
 
-  document.getElementById("completionPanel").style.display =
-    "block";
+  document.getElementById("completionPanel").style.display = "block";
 
+  // The report appears only after both mini-game stages are finished.
   showPerformanceReport();
 
   window.scrollTo({
@@ -1508,7 +1301,7 @@ function finishMiniGame() {
   });
 }
 
-/* GENERATE THE SHIFT PERFORMANCE REPORT */
+/* SHIFT PERFORMANCE REPORT */
 
 function showPerformanceReport() {
   document.getElementById("reportPanel").style.display = "block";
@@ -1540,11 +1333,9 @@ function showPerformanceReport() {
     rating = "Needs Improvement";
   }
 
-  document.getElementById("performanceRating").textContent =
-    rating;
+  document.getElementById("performanceRating").textContent = rating;
 
   const summary = document.getElementById("decisionSummary");
-
   summary.innerHTML = "";
 
   const incidentNames = {
@@ -1558,8 +1349,7 @@ function showPerformanceReport() {
     item.className = "decision-item";
 
     const heading = document.createElement("h4");
-    heading.textContent =
-      record.title || incidentNames[record.incident];
+    heading.textContent = record.title || incidentNames[record.incident];
 
     const response = document.createElement("p");
     response.textContent = "Selected response: " + record.response;
@@ -1591,22 +1381,15 @@ function restartShift() {
 
   decisionRecords = [];
 
-  // Reset mini-game variables.
-
   miniGameStage = 1;
   miniGamePoints = 0;
   miniGameAnswerMade = false;
   miniGameComplete = false;
 
-  // Reset incident visibility.
-
   document.getElementById("incident1").style.display = "block";
   document.getElementById("incident2").style.display = "none";
   document.getElementById("incident3").style.display = "none";
-
   document.getElementById("scannerMiniGame").style.display = "none";
-
-  // Reset feedback messages.
 
   const feedbackIds = [
     "feedback",
@@ -1623,19 +1406,12 @@ function restartShift() {
     feedback.innerHTML = "";
   });
 
-  // Reset incident decision buttons.
-
   document.querySelectorAll(".choice-button").forEach(button => {
     button.disabled = false;
   });
 
-  // Reset mini-game content.
-
-  document.getElementById("miniGameStage").textContent =
-    "Stage 1 of 2";
-
-  document.getElementById("miniGamePoints").textContent =
-    "Challenge Points: 0 / 100";
+  document.getElementById("miniGameStage").textContent = "Stage 1 of 2";
+  document.getElementById("miniGamePoints").textContent = "Challenge Points: 0 / 100";
 
   document.getElementById("miniGameQuestion").innerHTML =
     "<strong>Stage 1: Diagnose the Failure</strong>" +
@@ -1650,11 +1426,9 @@ function restartShift() {
     <button class="choice-button" onclick="answerMiniGame(1)">
       1. A local wireless access point or network connectivity issue.
     </button>
-
     <button class="choice-button" onclick="answerMiniGame(2)">
       2. All scanner batteries failed simultaneously.
     </button>
-
     <button class="choice-button" onclick="answerMiniGame(3)">
       3. The package barcodes are damaged.
     </button>
@@ -1662,36 +1436,22 @@ function restartShift() {
 
   document.getElementById("miniGameChoices").style.display = "grid";
 
-  // Hide transition buttons and report.
-
   document.getElementById("continueArea").style.display = "none";
-
-  document.getElementById("continueToIncident3").style.display =
-    "none";
-
+  document.getElementById("continueToIncident3").style.display = "none";
   document.getElementById("miniGameActions").style.display = "none";
 
   document.getElementById("completionPanel").style.display = "none";
-
   document.getElementById("reportPanel").style.display = "none";
 
-  // Reset incident counter and KPI display.
-
-  document.getElementById("incidentCounter").textContent =
-    "Incident 1 of 3";
+  document.getElementById("incidentCounter").textContent = "Incident 1 of 3";
 
   updateStats();
-
-  // Return to the beginning of the game.
 
   document.getElementById("welcomeScreen").style.display = "none";
   document.getElementById("previewSection").style.display = "none";
   document.getElementById("gameScreen").style.display = "block";
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 </script>
 
