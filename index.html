@@ -317,6 +317,145 @@ button:disabled {
   margin-bottom: 10px;
 }
 
+/* SHIFT PERFORMANCE REPORT */
+
+.report-panel {
+  display: none;
+  margin-top: 22px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px;
+}
+
+.report-panel h2 {
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.report-intro {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.report-score {
+  background: var(--navy);
+  color: white;
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.report-score p {
+  font-size: 13px;
+  color: #dce8f5;
+  margin-bottom: 8px;
+}
+
+.report-score strong {
+  display: block;
+  font-size: 42px;
+  color: var(--yellow);
+  margin-bottom: 8px;
+}
+
+.report-score span {
+  display: inline-block;
+  font-weight: bold;
+  padding: 7px 13px;
+  border-radius: 20px;
+  background: var(--yellow);
+  color: var(--navy);
+  font-size: 13px;
+}
+
+.report-section-title {
+  color: var(--navy);
+  font-size: 18px;
+  margin: 25px 0 14px;
+}
+
+.report-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.report-kpi {
+  background: #f3f6fa;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 17px;
+}
+
+.report-kpi p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.report-kpi strong {
+  color: var(--navy);
+  font-size: 25px;
+}
+
+.decision-list {
+  display: grid;
+  gap: 12px;
+}
+
+.decision-item {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 17px;
+  background: #fafbfd;
+}
+
+.decision-item h4 {
+  color: var(--navy);
+  margin-bottom: 7px;
+}
+
+.decision-item p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.decision-points {
+  display: inline-block;
+  margin-top: 9px;
+  font-weight: bold;
+  color: var(--green);
+  font-size: 13px;
+}
+
+.report-note {
+  background: #fff8e5;
+  border-left: 4px solid var(--yellow);
+  padding: 15px;
+  margin-top: 22px;
+  border-radius: 5px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.report-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.restart-button {
+  background: var(--navy);
+  color: white;
+}
+
 footer {
   text-align: center;
   padding: 35px 15px;
@@ -329,7 +468,8 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .status-grid {
+  .status-grid,
+  .report-kpis {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -339,7 +479,8 @@ footer {
 }
 
 @media (max-width: 380px) {
-  .status-grid {
+  .status-grid,
+  .report-kpis {
     grid-template-columns: 1fr;
   }
 }
@@ -586,13 +727,76 @@ footer {
 
   </section>
 
+  <!-- SHIFT COMPLETION MESSAGE -->
+
   <section class="completion-panel" id="completionPanel">
     <h3>✦ Shift Simulation Complete!</h3>
     <p>
       You have completed all three warehouse systems incidents.
-      Review your management decision score and operational KPIs
-      to evaluate your performance.
+      Your Shift Performance Report is ready below.
     </p>
+  </section>
+
+  <!-- SHIFT PERFORMANCE REPORT -->
+
+  <section class="report-panel" id="reportPanel">
+
+    <h2>📊 Shift Performance Report</h2>
+
+    <p class="report-intro">
+      Your shift is complete. Review your management decisions,
+      operational KPIs, and overall performance.
+    </p>
+
+    <div class="report-score">
+      <p>FINAL MANAGEMENT DECISION SCORE</p>
+      <strong id="finalScore">0 / 300</strong>
+      <span id="performanceRating">Performance Rating</span>
+    </div>
+
+    <h3 class="report-section-title">Final Operational KPIs</h3>
+
+    <div class="report-kpis">
+
+      <div class="report-kpi">
+        <p>Productivity</p>
+        <strong id="reportProductivity">100%</strong>
+      </div>
+
+      <div class="report-kpi">
+        <p>Equipment Health</p>
+        <strong id="reportEquipment">100%</strong>
+      </div>
+
+      <div class="report-kpi">
+        <p>Safety Score</p>
+        <strong id="reportSafety">100%</strong>
+      </div>
+
+      <div class="report-kpi">
+        <p>Associate Morale</p>
+        <strong id="reportMorale">100%</strong>
+      </div>
+
+    </div>
+
+    <h3 class="report-section-title">Incident Decision Summary</h3>
+
+    <div class="decision-list" id="decisionSummary"></div>
+
+    <div class="report-note">
+      <strong>Performance insight:</strong>
+      Your final score reflects the quality of your decisions across
+      the three incidents. Your KPI results show how those decisions
+      affected warehouse operations, equipment, safety, and associates.
+    </div>
+
+    <div class="report-actions">
+      <button class="restart-button" onclick="restartShift()">
+        ↻ RESTART SHIFT
+      </button>
+    </div>
+
   </section>
 
 </section>
@@ -606,7 +810,7 @@ footer {
 </footer>
 
 <script>
-const stats = {
+const initialStats = {
   productivity: 100,
   equipment: 100,
   safety: 100,
@@ -614,9 +818,31 @@ const stats = {
   score: 0
 };
 
+const stats = { ...initialStats };
+
 let decisionMade = false;
 let scannerDecisionMade = false;
 let networkDecisionMade = false;
+
+let decisionRecords = [];
+
+const incidentOptions = {
+  1: [
+    "Dispatch maintenance and coordinate troubleshooting.",
+    "Redirect packages to an alternate conveyor.",
+    "Ignore the issue and continue normal operations."
+  ],
+  2: [
+    "Check scanner connectivity, troubleshoot devices, and contact technical support.",
+    "Issue replacement scanners and coordinate associates.",
+    "Keep retrying without investigating the scanner connection problem."
+  ],
+  3: [
+    "Check the scope of the connectivity issue, document affected areas, and escalate to IT.",
+    "Coordinate approved backup procedures and redirect associates to unaffected areas.",
+    "Ignore the outage and tell associates to keep retrying without reporting it."
+  ]
+};
 
 function startShift() {
   document.getElementById("welcomeScreen").style.display = "none";
@@ -655,9 +881,16 @@ function updateStats() {
     stats.score;
 }
 
+function recordDecision(incidentNumber, choice, points) {
+  decisionRecords.push({
+    incident: incidentNumber,
+    response: incidentOptions[incidentNumber][choice - 1],
+    points: points
+  });
+}
+
 function makeDecision(choice) {
   if (decisionMade) return;
-
   if (![1, 2, 3].includes(choice)) return;
 
   decisionMade = true;
@@ -673,11 +906,12 @@ function makeDecision(choice) {
 
   let message = "";
   let quality = "";
+  let points = 0;
 
   if (choice === 1) {
-
     stats.productivity -= 5;
     stats.score += 100;
+    points = 100;
 
     message =
       "<strong>Good decision!</strong><br>" +
@@ -689,10 +923,10 @@ function makeDecision(choice) {
     quality = "good";
 
   } else if (choice === 2) {
-
     stats.productivity += 5;
     stats.morale += 3;
     stats.score += 90;
+    points = 90;
 
     message =
       "<strong>Strong operational decision!</strong><br>" +
@@ -702,12 +936,12 @@ function makeDecision(choice) {
 
     quality = "good";
 
-  } else if (choice === 3) {
-
+  } else {
     stats.productivity -= 20;
     stats.equipment -= 10;
     stats.safety -= 5;
     stats.morale -= 15;
+    points = 0;
 
     message =
       "<strong>Poor decision!</strong><br>" +
@@ -718,6 +952,7 @@ function makeDecision(choice) {
     quality = "bad";
   }
 
+  recordDecision(1, choice, points);
   updateStats();
 
   feedback.className = "feedback " + quality;
@@ -737,6 +972,7 @@ function showIncident2() {
 
   document.getElementById("incident1").style.display = "none";
   document.getElementById("incident2").style.display = "block";
+
   document.getElementById("incidentCounter").textContent =
     "Incident 2 of 3";
 
@@ -748,7 +984,6 @@ function showIncident2() {
 
 function makeScannerDecision(choice) {
   if (scannerDecisionMade) return;
-
   if (![1, 2, 3].includes(choice)) return;
 
   scannerDecisionMade = true;
@@ -764,11 +999,12 @@ function makeScannerDecision(choice) {
 
   let message = "";
   let quality = "";
+  let points = 0;
 
   if (choice === 1) {
-
     stats.productivity += 5;
     stats.score += 100;
+    points = 100;
 
     message =
       "<strong>Excellent systems response!</strong><br>" +
@@ -780,10 +1016,10 @@ function makeScannerDecision(choice) {
     quality = "good";
 
   } else if (choice === 2) {
-
     stats.productivity += 3;
     stats.morale += 2;
     stats.score += 90;
+    points = 90;
 
     message =
       "<strong>Strong recovery decision!</strong><br>" +
@@ -794,10 +1030,10 @@ function makeScannerDecision(choice) {
 
     quality = "good";
 
-  } else if (choice === 3) {
-
+  } else {
     stats.productivity -= 15;
     stats.morale -= 5;
+    points = 0;
 
     message =
       "<strong>Poor systems response!</strong><br>" +
@@ -808,6 +1044,7 @@ function makeScannerDecision(choice) {
     quality = "bad";
   }
 
+  recordDecision(2, choice, points);
   updateStats();
 
   feedback.className = "feedback " + quality;
@@ -830,6 +1067,7 @@ function showIncident3() {
 
   document.getElementById("incident2").style.display = "none";
   document.getElementById("incident3").style.display = "block";
+
   document.getElementById("incidentCounter").textContent =
     "Incident 3 of 3";
 
@@ -841,7 +1079,6 @@ function showIncident3() {
 
 function makeNetworkDecision(choice) {
   if (networkDecisionMade) return;
-
   if (![1, 2, 3].includes(choice)) return;
 
   networkDecisionMade = true;
@@ -857,11 +1094,12 @@ function makeNetworkDecision(choice) {
 
   let message = "";
   let quality = "";
+  let points = 0;
 
   if (choice === 1) {
-
     stats.score += 100;
     stats.productivity -= 5;
+    points = 100;
 
     message =
       "<strong>Excellent network response!</strong><br>" +
@@ -873,10 +1111,10 @@ function makeNetworkDecision(choice) {
     quality = "good";
 
   } else if (choice === 2) {
-
     stats.score += 90;
     stats.productivity += 3;
     stats.morale += 2;
+    points = 90;
 
     message =
       "<strong>Strong operational continuity decision!</strong><br>" +
@@ -887,10 +1125,10 @@ function makeNetworkDecision(choice) {
     quality = "good";
 
   } else {
-
     stats.score += 0;
     stats.productivity -= 20;
     stats.morale -= 10;
+    points = 0;
 
     message =
       "<strong>Poor systems response!</strong><br>" +
@@ -902,6 +1140,7 @@ function makeNetworkDecision(choice) {
     quality = "bad";
   }
 
+  recordDecision(3, choice, points);
   updateStats();
 
   feedback.className = "feedback " + quality;
@@ -918,8 +1157,148 @@ function makeNetworkDecision(choice) {
 
   document.getElementById("completionPanel").style.display = "block";
 
+  showPerformanceReport();
+
   window.scrollTo({
     top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
+}
+
+/* GENERATE THE SHIFT PERFORMANCE REPORT */
+
+function showPerformanceReport() {
+  document.getElementById("reportPanel").style.display = "block";
+
+  document.getElementById("finalScore").textContent =
+    stats.score + " / 300";
+
+  document.getElementById("reportProductivity").textContent =
+    stats.productivity + "%";
+
+  document.getElementById("reportEquipment").textContent =
+    stats.equipment + "%";
+
+  document.getElementById("reportSafety").textContent =
+    stats.safety + "%";
+
+  document.getElementById("reportMorale").textContent =
+    stats.morale + "%";
+
+  let rating = "";
+
+  if (stats.score >= 270) {
+    rating = "Excellent Performance";
+  } else if (stats.score >= 240) {
+    rating = "Strong Performance";
+  } else if (stats.score >= 180) {
+    rating = "Developing Performance";
+  } else {
+    rating = "Needs Improvement";
+  }
+
+  document.getElementById("performanceRating").textContent =
+    rating;
+
+  const summary = document.getElementById("decisionSummary");
+
+  summary.innerHTML = "";
+
+  const incidentNames = {
+    1: "Incident 1: Conveyor System Failure",
+    2: "Incident 2: Barcode Scanner System Failure",
+    3: "Incident 3: Network Connectivity Failure"
+  };
+
+  decisionRecords.forEach(record => {
+    const item = document.createElement("div");
+    item.className = "decision-item";
+
+    const heading = document.createElement("h4");
+    heading.textContent = incidentNames[record.incident];
+
+    const response = document.createElement("p");
+    response.textContent = "Selected response: " + record.response;
+
+    const points = document.createElement("span");
+    points.className = "decision-points";
+    points.textContent = "Points earned: " + record.points;
+
+    item.appendChild(heading);
+    item.appendChild(response);
+    item.appendChild(points);
+
+    summary.appendChild(item);
+  });
+}
+
+/* RESTART THE SIMULATION */
+
+function restartShift() {
+  stats.productivity = initialStats.productivity;
+  stats.equipment = initialStats.equipment;
+  stats.safety = initialStats.safety;
+  stats.morale = initialStats.morale;
+  stats.score = initialStats.score;
+
+  decisionMade = false;
+  scannerDecisionMade = false;
+  networkDecisionMade = false;
+
+  decisionRecords = [];
+
+  // Reset incident visibility.
+
+  document.getElementById("incident1").style.display = "block";
+  document.getElementById("incident2").style.display = "none";
+  document.getElementById("incident3").style.display = "none";
+
+  // Reset feedback messages.
+
+  const feedbackIds = [
+    "feedback",
+    "scannerFeedback",
+    "networkFeedback"
+  ];
+
+  feedbackIds.forEach(id => {
+    const feedback = document.getElementById(id);
+    feedback.className = "feedback";
+    feedback.innerHTML = "";
+  });
+
+  // Reset all incident decision buttons.
+
+  document.querySelectorAll(".choice-button").forEach(button => {
+    button.disabled = false;
+  });
+
+  // Hide transition buttons and report.
+
+  document.getElementById("continueArea").style.display = "none";
+
+  document.getElementById("continueToIncident3").style.display =
+    "none";
+
+  document.getElementById("completionPanel").style.display = "none";
+
+  document.getElementById("reportPanel").style.display = "none";
+
+  // Reset incident counter and KPI display.
+
+  document.getElementById("incidentCounter").textContent =
+    "Incident 1 of 3";
+
+  updateStats();
+
+  // Return to the beginning of the game.
+
+  document.getElementById("welcomeScreen").style.display = "none";
+  document.getElementById("previewSection").style.display = "none";
+  document.getElementById("gameScreen").style.display = "block";
+
+  window.scrollTo({
+    top: 0,
     behavior: "smooth"
   });
 }
